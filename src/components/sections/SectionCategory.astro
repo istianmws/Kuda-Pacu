@@ -3,20 +3,19 @@ import CardAds from "../CardAds.astro";
 
 interface Props {
   category: string;
+  subcategory: string;
   href: string;
 }
 
-const { href, category } = Astro.props;
+const { href, category, subcategory } = Astro.props;
 ---
 
-<div
-  class="flex flex-wrap items-center justify-between mx-auto p-5"
->
-  <div class="flex flex-col">
+<div class="grid grid-cols-3 items-center justify-items-center mx-auto p-5 mt-24">
+  <div class="flex flex-col justify-self-start">
     <div class="text-[#c32f27] text-[32px] font-bold font-['Kumbh Sans']">
       {category}
       <span class="text-[#2b2d42] text-[32px] font-bold font-['Kumbh Sans']"
-        >For Sale</span
+        >{subcategory}</span
       >
     </div>
     <div class="flex text-[#2b2d42] text-base font-normal font-['Kumbh Sans']">
@@ -28,11 +27,13 @@ const { href, category } = Astro.props;
     class="h-20"
     alt="KudaPacu Logo"
   />
-  <a
-    href={href}
-    class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-md text-sm px-5 py-2.5 text-center mb-2"
-    >Lihat Selengkapnya</a
-  >
+  <div class="justify-self-end">
+    <a
+      href={href}
+      class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-md text-sm px-5 py-2.5 text-center mb-2"
+      >Lihat Selengkapnya</a
+    >
+  </div>
 </div>
 
 <div
