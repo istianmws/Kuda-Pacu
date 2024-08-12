@@ -3,9 +3,13 @@ import Layout from "../layouts/MainLayout.astro";
 import CardAds from "../components/CardAds.astro";
 import PremiumAds from "../components/sections/SectionPremiumAds.astro";
 import SectionHero from "../components/sections/SectionHero.astro";
+import SectionCategory from "../components/sections/SectionCategory.astro";
+import SectionCTA from "../components/sections/SectionCTA.astro";
 ---
 
 <Layout title="Kuda Pacu">
     <PremiumAds/>
     <SectionHero/>
+    <SectionCategory category="yourCategory" href="yourHref"/>
+    <SectionCTA/>
 </Layout>

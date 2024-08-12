@@ -4,7 +4,7 @@ interface Props {
 }
 
 const { title } = Astro.props;
-import Navbar from '../components/Navbar.astro';
+import Navbar from "../components/Navbar.astro";
 ---
 
 <!doctype html>
@@ -20,7 +20,10 @@ import Navbar from '../components/Navbar.astro';
 
   <body>
     <Navbar />
-    <slot />
+    <div class="max-w-screen-xl mx-auto justify-items-center">
+      <slot/>
+      
+    </div>
     <script src="../../node_modules/flowbite/dist/flowbite.min.js"></script>
   </body>
 </html>
@@ -39,7 +42,7 @@ import Navbar from '../components/Navbar.astro';
   }
   html {
     font-family: system-ui, sans-serif;
-    background: whitesmoke;
+    background: white;
     background-size: 224px;
   }
   code {

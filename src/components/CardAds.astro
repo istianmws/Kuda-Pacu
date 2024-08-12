@@ -7,9 +7,9 @@ import Yt from "./icons/Yt.astro";
 import Web from "./icons/Web.astro";
 
 interface Props {
-	title: string;
-	desc: string;
-	img: string;
+  title: string;
+  desc: string;
+  img: string;
   linkwa: string;
   linkfb: string;
   linkyt: string;
@@ -18,7 +18,17 @@ interface Props {
   linkweb: string;
 }
 
-const { img, title, desc, linkfb, linkwa, linkig, linktiktok, linkweb, linkyt } = Astro.props;
+const {
+  img,
+  title,
+  desc,
+  linkfb,
+  linkwa,
+  linkig,
+  linktiktok,
+  linkweb,
+  linkyt,
+} = Astro.props;
 ---
 
 <section class="flex flex-col max-w-[285px]">
