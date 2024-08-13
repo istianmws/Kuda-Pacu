@@ -6,13 +6,24 @@ import SectionHero from "../components/sections/SectionHero.astro";
 import SectionCategory from "../components/sections/SectionCategory.astro";
 import SectionCTA from "../components/sections/SectionCTA.astro";
 import ScetionGalaery from "../components/sections/SectionGalery.astro";
+interface Props {
+  category: string;
+  subcategory: string;
+  href: string;
+}
+
+const { category, subcategory, href }: Props = Astro.props;
 ---
 
 <Layout title="Kuda Pacu">
   <PremiumAds />
 
   <SectionHero />
-  <SectionCategory category="Horse" subcategory="for sale" href="yourHref" />
+  <SectionCategory
+    category="Horse"
+    subcategory="for sale"
+    href={`/category?category=${category}&subcategory=${subcategory}`}
+  />
   <SectionCTA />
   <SectionCategory category="Stalion" subcategory="for stud" href="yourHref" />
   <SectionCategory category="Horse" subcategory="Stable" href="yourHref" />
@@ -26,9 +37,7 @@ import ScetionGalaery from "../components/sections/SectionGalery.astro";
   <SectionCategory category="Racing" subcategory="Event" href="yourHref" />
   <ScetionGalaery />
   <div class="px-5 mt-20">
-    <div
-      class="grid justify-items-center"
-    >
+    <div class="grid justify-items-center">
       <img
         src="https://i.ibb.co.com/S62s7bL/kudapacu-3.png"
         class="h-24"
@@ -37,5 +46,4 @@ import ScetionGalaery from "../components/sections/SectionGalery.astro";
     </div>
   </div>
   <PremiumAds />
-  
 </Layout>
