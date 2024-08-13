@@ -5,6 +5,7 @@ interface Props {
 
 const { title } = Astro.props;
 import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
 ---
 
 <!doctype html>
@@ -24,6 +25,7 @@ import Navbar from "../components/Navbar.astro";
       <slot/>
       
     </div>
+    <Footer />
     <script src="../../node_modules/flowbite/dist/flowbite.min.js"></script>
   </body>
 </html>
@@ -41,12 +43,15 @@ import Navbar from "../components/Navbar.astro";
     );
   }
   html {
-    font-family: system-ui, sans-serif;
+    font-family: system-ui, sans-serif, inter;
     background: white;
     background-size: 224px;
   }
   code {
     font-family:
+      SFMono-Regular,
+      Consolas,
+      Inter,
       Menlo,
       Monaco,
       Lucida Console,
