@@ -31,7 +31,7 @@ const {
 } = Astro.props;
 ---
 
-<section class="flex flex-col max-w-[285px]">
+<section class="flex flex-col max-w-[150px] sm:max-w-[285px]">
   <article
     class="flex flex-col pb-5 w-full bg-white rounded-xl shadow-[0px_4px_4px_rgba(0,0,0,0.1)]"
   >
@@ -45,11 +45,11 @@ const {
       <h2 class="self-start text-base font-semibold text-red-600">
         {title}
       </h2>
-      <p class="mt-2.5 text-xs text-neutral-700">
+      <p class="my-2.5 sm:mt-2.5 text-xs text-neutral-700">
         {desc}
       </p>
       <div
-        class="flex gap-1.5 mt-12 text-xs font-bold text-white whitespace-nowrap justify-between"
+        class="flex flex-wrap-reverse sm:flex-nowrap  gap-1.5 sm:mt-12 text-xs font-bold text-white sm:whitespace-nowrap sm:justify-between"
       >
         <!-- WA -->
         <a
