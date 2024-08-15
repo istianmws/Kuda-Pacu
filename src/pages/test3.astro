@@ -9,6 +9,7 @@ const categories = await fetchApi<Categori[]>({
   wrappedByKey: "data", // the key to unwrap the response
 });
 console.log(categories);
+const jenis = "Horse";
 ---
 
 <MainLayout title="TEST STRAPI ASTRO">
@@ -18,7 +19,7 @@ console.log(categories);
         <SectionCategory
           category={categori.attributes.nama}
           subcategory=""
-          href={`/category?category=${categori.attributes.nama}/`}
+          href={`/category?jenis=${categori.attributes.nama}/`}
         />
       ))
     }
