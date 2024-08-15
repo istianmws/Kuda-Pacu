@@ -1,6 +1,37 @@
+---
+import CardAds from "../components/CardAds.astro";
+import Layout from "../layouts/MainLayout.astro";
+
+// Fetch data from the API
+const response = await fetch(
+  "https://backend.kiranaecoprint.online/api/kategoris?populate[kontens][populate]=pengiklan,foto"
+);
+const data = await response.json();
+// console.log(data);
+// Extract the needed information
+const category1 = data.data[0].attributes;
+const kontens11 = category1.kontens.data[0].attributes;
+const pengiklan = kontens11.pengiklan.data.attributes;
+const foto = kontens11.foto.data[0].attributes;
+// console.log(kategoriData.kategoris.length.toString());
+---
+
 <!-- buat ngetes component -->
----
-import Footer from "../components/Footer.astro"
----
-<Footer>
-</Footer>
+<Layout title="TEST">
+  <h1>{category1.nama}</h1>
+  <p>{kontens11.detail}</p>
+  <p>Pengiklan: {pengiklan.nama} - {pengiklan.alamat}</p>
+  <p>Harga: {category1.harga}</p>
+  <CardAds
+    title={category1.judul}
+    desc={category1.deskripsi}
+    img={foto.foto.data[0].attributes.url}
+    linkwa={pengiklan.wa}
+    linkfb={pengiklan.fb}
+    linkyt={pengiklan.yt}
+    linktiktok={pengiklan.tiktok}
+    linkig={pengiklan.ig}
+    linkweb={pengiklan.web}
+    />
+  </Layout
+>
