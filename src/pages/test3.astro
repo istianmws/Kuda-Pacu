@@ -1,0 +1,26 @@
+---
+import fetchApi from "../lib/strapi";
+import type Categori from "../interfaces/categori";
+import MainLayout from "../layouts/MainLayout.astro";
+import SectionCategory from "../components/sections/SectionCategory.astro";
+
+const categories = await fetchApi<Categori[]>({
+  endpoint: "kategoris", // the content type to fetch
+  wrappedByKey: "data", // the key to unwrap the response
+});
+console.log(categories);
+---
+
+<MainLayout title="TEST STRAPI ASTRO">
+  <ul>
+    {
+      categories.map((categori) => (
+        <SectionCategory
+          category={categori.attributes.nama}
+          subcategory=""
+          href={`/category?category=${categori.attributes.nama}/`}
+        />
+      ))
+    }
+  </ul>
+</MainLayout>
