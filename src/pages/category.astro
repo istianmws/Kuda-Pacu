@@ -5,14 +5,15 @@ import SectionCategory from "../components/sections/SectionCategory.astro";
 // import { Astro } from "astro";
 
 const url = new URL(Astro.url);
-const category = url.searchParams.get("category");
+const category1 = url.searchParams.get("category");
 const subcategory = url.searchParams.get("subcategory");
+console.log(category1);
 ---
 
 <MainLayout title="category">
   <PremiumAds />
   <SectionCategory
-    category={category}
+    category={category1}
     subcategory={subcategory}
     href={url.href}
   />
