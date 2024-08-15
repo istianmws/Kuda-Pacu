@@ -1,0 +1,33 @@
+---
+import fetchApi from "../lib/strapi";
+import type Categori from "../interfaces/categori";
+
+const categories = await fetchApi<Categori[]>({
+  endpoint: "kategoris", // the content type to fetch
+  wrappedByKey: "data", // the key to unwrap the response
+});
+console.log(categories);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Strapi & Astro</title>
+  </head>
+
+  <body>
+    <main>
+      <ul>
+        {
+          categories.map((categori) => (
+            <li>
+              <a href={`/blog/${categori.attributes.nama}/`}>
+                {categori.attributes.nama}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </main>
+  </body>
+</html>
