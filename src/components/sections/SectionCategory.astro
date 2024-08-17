@@ -1,13 +1,14 @@
 ---
 import CardAds from "../CardAds.astro";
 
-interface Props {
+interface Props<T> {
   category: string;
-  subcategory: string;
+  subcategory?: string;
   href: string;
+  kontens?: Array<T>;
 }
 
-const { href, category, subcategory } = Astro.props;
+const { href, category, subcategory, kontens } = Astro.props;
 ---
 
 <div

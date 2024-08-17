@@ -6,23 +6,63 @@ import SectionHero from "../components/sections/SectionHero.astro";
 import SectionCategory from "../components/sections/SectionCategory.astro";
 import SectionCTA from "../components/sections/SectionCTA.astro";
 import ScetionGalaery from "../components/sections/SectionGalery.astro";
-interface Props {
-  category: string;
-  subcategory: string;
-  href: string;
+import NodeCache from "node-cache";
+
+// interface Props<T> {
+//   category: string;
+//   subcategory: string;
+//   href: string;
+//   categories: Array<T>;
+// }
+
+//const { categories } = Astro.props;
+
+export async function getDataCard() {
+  try {
+    // Data categori + card
+    let endpoint_card = "kategoris?populate[kontens][populate]=pengiklan,foto";
+    const url = new URL(`${import.meta.env.STRAPI_URL}/api/${endpoint_card}`);
+    const response = await fetch(url.toString());
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const categories = await response.json();
+    //console.log(categories.data);
+    return categories.data;
+    return {
+      props: {
+        categories: categories.data,
+      },
+    };
+  } catch (error) {
+    console.error("There was a problem with the fetch operation:", error);
+  }
 }
 
-const { category, subcategory, href }: Props = Astro.props;
+//await getDataCard();
+const categories = await getDataCard();
+//console.log(categories);
+
+//const { categories, subcategory, href, category }: Props<T> = Astro.props;
 ---
 
 <Layout title="Kuda Pacu">
   <PremiumAds />
 
   <SectionHero />
-  <SectionCategory
+
+  {
+    categories.map((categori) => (
+      <SectionCategory
+        category={categori.attributes.nama}
+        href="yourHref"
+      />
+    ))
+  }
+
+  <!-- <SectionCategory
     category="Horse"
     subcategory="for sale"
-    
     href={`/category?category=sub&subcategory=hallo`}
   />
   <SectionCTA />
@@ -35,7 +75,7 @@ const { category, subcategory, href }: Props = Astro.props;
     href="yourHref"
   />
   <SectionCategory category="Artikel" subcategory="" href="yourHref" />
-  <SectionCategory category="Racing" subcategory="Event" href="yourHref" />
+  <SectionCategory category="Racing" subcategory="Event" href="yourHref" /> -->
   <ScetionGalaery />
   <div class="px-5 mt-20">
     <div class="grid justify-items-center">
