@@ -6,30 +6,23 @@ import Tiktok from "./icons/Tiktok.astro";
 import Yt from "./icons/Yt.astro";
 import Web from "./icons/Web.astro";
 
+interface Pengiklan {
+  whatsapp: string;
+  instagram: string;
+  youtube: string;
+  tiktok: string;
+  facebook: string;
+  website: string;
+}
 interface Props {
   title: string;
   desc: string;
   img: string;
-  linkwa: string;
-  linkfb: string;
-  linkyt: string;
-  linktiktok: string;
-  linkig: string;
-  linkweb: string;
-  data?: Object;
+  data_pengiklan?: Pengiklan;
 }
 
-const {
-  img,
-  title,
-  desc,
-  linkfb,
-  linkwa,
-  linkig,
-  linktiktok,
-  linkweb,
-  linkyt,
-} = Astro.props;
+const { img, title, desc, data_pengiklan } = Astro.props;
+console.log(data_pengiklan);
 ---
 
 <section class="flex flex-col max-w-[200px] sm:max-w-[285px]">
@@ -50,49 +43,81 @@ const {
         {desc}
       </p>
       <div
-        class="flex flex-wrap sm:flex-nowrap  gap-1.5 text-xs font-bold text-white sm:whitespace-nowrap sm:justify-between"
+        class="flex flex-wrap sm:flex-nowrap gap-1.5 text-xs font-bold text-white sm:whitespace-nowrap"
       >
         <!-- WA -->
-        <a
-          href={linkwa}
-          class="px-2.5 py-1 text-xs font-medium text-center inline-flex items-center space-x-2 text-white bg-red-400 rounded-lg hover:bg-red-800 focus:ring-1 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-400 dark:focus:ring-red-800"
-        >
-          <Wa />
-          <span class="text-white text-[8px] font-bold font-['Kumbh Sans']"
-            >Hubungi</span
-          >
-        </a>
+        {
+          data_pengiklan.whatsapp && (
+            <a
+              href={data_pengiklan.whatsapp}
+              class="px-2.5 py-1 text-xs font-medium text-center inline-flex items-center space-x-2 text-white bg-red-400 rounded-lg hover:bg-red-800 focus:ring-1 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-400 dark:focus:ring-red-800"
+            >
+              <Wa />
+              <span class="text-white text-[8px] font-bold font-['Kumbh Sans']">
+                Hubungi
+              </span>
+            </a>
+          )
+        }
 
         <!-- IG -->
-        <a
-          href={linkig}
-          class="px-1.5 py-1 text-xs font-medium text-center inline-flex items-center space-x-2 text-white bg-gray-50 border rounded-lg hover:bg-red-300 focus:ring-1 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-400 dark:focus:ring-red-800"
-          ><Ig />
-        </a>
+        {
+          data_pengiklan.instagram && (
+            <a
+              href={data_pengiklan.instagram}
+              class="px-1.5 py-1 text-xs font-medium text-center inline-flex items-center space-x-2 text-white bg-gray-50 border rounded-lg hover:bg-red-300 focus:ring-1 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-400 dark:focus:ring-red-800"
+            >
+              <Ig />
+            </a>
+          )
+        }
+
         <!-- Youtube -->
-        <a
-          href={linkyt}
-          class="px-1.5 py-1 text-xs font-medium text-center inline-flex items-center space-x-2 text-white bg-gray-50 border rounded-lg hover:bg-red-300 focus:ring-1 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-400 dark:focus:ring-red-800"
-          ><Yt />
-        </a>
+        {
+          data_pengiklan.youtube && (
+            <a
+              href={data_pengiklan.youtube}
+              class="px-1.5 py-1 text-xs font-medium text-center inline-flex items-center space-x-2 text-white bg-gray-50 border rounded-lg hover:bg-red-300 focus:ring-1 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-400 dark:focus:ring-red-800"
+            >
+              <Yt />
+            </a>
+          )
+        }
+
         <!-- TIKTOK -->
-        <a
-          href={linktiktok}
-          class="px-1.5 py-1 text-xs font-medium text-center inline-flex items-center space-x-2 text-white bg-gray-50 border rounded-lg hover:bg-red-300 focus:ring-1 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-400 dark:focus:ring-red-800"
-          ><Tiktok />
-        </a>
+        {
+          data_pengiklan.tiktok && (
+            <a
+              href={data_pengiklan.tiktok}
+              class="px-1.5 py-1 text-xs font-medium text-center inline-flex items-center space-x-2 text-white bg-gray-50 border rounded-lg hover:bg-red-300 focus:ring-1 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-400 dark:focus:ring-red-800"
+            >
+              <Tiktok />
+            </a>
+          )
+        }
+
         <!-- Facebook -->
-        <a
-          href={linkfb}
-          class="px-1.5 py-1 text-xs font-medium text-center inline-flex items-center space-x-2 text-white bg-gray-50 border rounded-lg hover:bg-red-300 focus:ring-1 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-400 dark:focus:ring-red-800"
-          ><Fb />
-        </a>
+        {
+          data_pengiklan.facebook && (
+            <a
+              href={data_pengiklan.facebook}
+              class="px-1.5 py-1 text-xs font-medium text-center inline-flex items-center space-x-2 text-white bg-gray-50 border rounded-lg hover:bg-red-300 focus:ring-1 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-400 dark:focus:ring-red-800"
+            >
+              <Fb />
+            </a>
+          )
+        }
         <!-- Website -->
-        <a
-          href={linkweb}
-          class="px-1.5 py-1 text-xs font-medium text-center inline-flex items-center space-x-2 text-white bg-gray-50 border rounded-lg hover:bg-red-300 focus:ring-1 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-400 dark:focus:ring-red-800"
-          ><Web />
-        </a>
+        {
+          data_pengiklan.website && (
+            <a
+              href={data_pengiklan.website}
+              class="px-1.5 py-1 text-xs font-medium text-center inline-flex items-center space-x-2 text-white bg-gray-50 border rounded-lg hover:bg-red-300 focus:ring-1 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-400 dark:focus:ring-red-800"
+            >
+              <Web />
+            </a>
+          )
+        }
       </div>
     </div>
   </article>

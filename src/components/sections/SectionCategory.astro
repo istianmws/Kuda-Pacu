@@ -50,12 +50,7 @@ const { id, href, name, subcategory, kontens } = Astro.props;
         title={konten.attributes.judul}
         desc="saya adalah seorang kuda pacu yang sangat cepat"
         img="https://cdn.builder.io/api/v1/image/assets/TEMP/f7216f743535b0d6c792fa6684ea72a99bca81565a1e5da62091b3276c9a79b7?placeholderIfAbsent=true&apiKey=54fb95c0816f4dfb82f7ffd2db39b850"
-        linkwa=""
-        linkfb=""
-        linkyt=""
-        linktiktok=""
-        linkig=""
-        linkweb=""
+        data_pengiklan={konten.attributes.pengiklan.data.attributes}
       />
     ))
   }

@@ -30,7 +30,6 @@ export async function getDataCard() {
     }
     const categories = await response.json();
     console.log(categories.data);
-    console.log("dtas");
     return categories.data;
     return {
       props: {
@@ -55,13 +54,17 @@ const categories = await getDataCard();
   <SectionHero />
 
   {
-    categories.map((categori) => (
-      <SectionCategory
-        name={categori.attributes.nama}
-        id={categori.id}
-        kontens={categori.attributes.kontens.data}
-      />
-    ))
+    categories.map(
+      (categori) =>
+        categori &&
+        categori.attributes.kontens.data.length > 0 && (
+          <SectionCategory
+            name={categori.attributes.nama}
+            id={categori.id}
+            kontens={categori.attributes.kontens.data}
+          />
+        )
+    )
   }
 
   <!-- <SectionCategory
