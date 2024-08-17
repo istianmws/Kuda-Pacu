@@ -17,6 +17,8 @@ import NodeCache from "node-cache";
 
 //const { categories } = Astro.props;
 
+export const prerender = false;
+
 export async function getDataCard() {
   try {
     // Data categori + card
@@ -27,7 +29,8 @@ export async function getDataCard() {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const categories = await response.json();
-    //console.log(categories.data);
+    console.log(categories.data);
+    console.log("dtas");
     return categories.data;
     return {
       props: {
@@ -54,8 +57,9 @@ const categories = await getDataCard();
   {
     categories.map((categori) => (
       <SectionCategory
-        category={categori.attributes.nama}
-        href="yourHref"
+        name={categori.attributes.nama}
+        id={categori.id}
+        kontens={categori.attributes.kontens.data}
       />
     ))
   }

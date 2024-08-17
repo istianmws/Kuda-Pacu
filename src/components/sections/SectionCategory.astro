@@ -1,14 +1,16 @@
 ---
+import CardAd from "../CardAd.astro";
 import CardAds from "../CardAds.astro";
 
 interface Props<T> {
-  category: string;
+  id: number;
+  name: string;
   subcategory?: string;
-  href: string;
+  href?: string;
   kontens?: Array<T>;
 }
 
-const { href, category, subcategory, kontens } = Astro.props;
+const { id, href, name, subcategory, kontens } = Astro.props;
 ---
 
 <div
@@ -16,7 +18,7 @@ const { href, category, subcategory, kontens } = Astro.props;
 >
   <div class="flex flex-col justify-self-start">
     <div class="text-[#c32f27] text-[32px] font-bold font-['Kumbh Sans']">
-      {category}
+      {name}
       <span class="text-[#2b2d42] text-[32px] font-bold font-['Kumbh Sans']"
         >{subcategory}</span
       >
@@ -32,7 +34,7 @@ const { href, category, subcategory, kontens } = Astro.props;
   />
   <div class="justify-self-end">
     <a
-      href={href}
+      href=`?kategori=${name}&id=${id}`
       class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-md text-sm px-5 py-2.5 text-center mb-2"
       >Lihat Selengkapnya</a
     >
@@ -42,18 +44,23 @@ const { href, category, subcategory, kontens } = Astro.props;
 <div
   class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4 mt-20 justify-items-center place-content-center"
 >
-  <CardAds
-    title="Kuda Pacu"
-    desc="saya adalah seorang kuda pacu yang sangat cepat"
-    img="https://cdn.builder.io/api/v1/image/assets/TEMP/f7216f743535b0d6c792fa6684ea72a99bca81565a1e5da62091b3276c9a79b7?placeholderIfAbsent=true&apiKey=54fb95c0816f4dfb82f7ffd2db39b850"
-    linkwa=""
-    linkfb=""
-    linkyt=""
-    linktiktok=""
-    linkig=""
-    linkweb=""
-  />
-  <CardAds
+  {
+    kontens.map((konten) => (
+      <CardAd
+        title={konten.attributes.judul}
+        desc="saya adalah seorang kuda pacu yang sangat cepat"
+        img="https://cdn.builder.io/api/v1/image/assets/TEMP/f7216f743535b0d6c792fa6684ea72a99bca81565a1e5da62091b3276c9a79b7?placeholderIfAbsent=true&apiKey=54fb95c0816f4dfb82f7ffd2db39b850"
+        linkwa=""
+        linkfb=""
+        linkyt=""
+        linktiktok=""
+        linkig=""
+        linkweb=""
+      />
+    ))
+  }
+
+  <!-- <CardAds
     title="Kuda Pacu"
     desc="saya adalah seorang kuda pacu yang sangat cepat"
     img="https://cdn.builder.io/api/v1/image/assets/TEMP/f7216f743535b0d6c792fa6684ea72a99bca81565a1e5da62091b3276c9a79b7?placeholderIfAbsent=true&apiKey=54fb95c0816f4dfb82f7ffd2db39b850"
@@ -129,5 +136,5 @@ const { href, category, subcategory, kontens } = Astro.props;
     linktiktok=""
     linkig=""
     linkweb=""
-  />
+  /> -->
 </div>
