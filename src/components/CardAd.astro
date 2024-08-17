@@ -22,7 +22,7 @@ interface Props {
 }
 
 const { img, title, desc, data_pengiklan } = Astro.props;
-console.log(data_pengiklan);
+console.log(img);
 ---
 
 <section class="flex flex-col max-w-[200px] sm:max-w-[285px]">
@@ -31,7 +31,7 @@ console.log(data_pengiklan);
   >
     <img
       loading="lazy"
-      src={img}
+      src=`${import.meta.env.STRAPI_URL}${img}`
       alt="..."
       class="object-cover w-full rounded-xl aspect-[1.71]"
     />
