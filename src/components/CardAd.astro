@@ -44,11 +44,14 @@ const { id, img, title, desc, data_pengiklan } = Astro.props;
           {title}
         </h2>
       </a>
-      <p class="sm:my-2.5 text-xs text-neutral-700 max-sm:text-justify">
-        {desc}
-      </p>
+      
+        {desc && (
+          <p class="sm:mt-2.5 text-xs text-neutral-700 max-sm:text-justify">
+            {desc}
+          </p>
+        )}
       <div
-        class="flex flex-wrap sm:flex-nowrap gap-1.5 text-xs font-bold text-white sm:whitespace-nowrap"
+        class="flex flex-wrap sm:flex-nowrap gap-1.5 text-xs mt-2.5 font-bold text-white sm:whitespace-nowrap"
       >
         <!-- WA -->
         {
