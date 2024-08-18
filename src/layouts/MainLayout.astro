@@ -6,6 +6,7 @@ interface Props {
 const { title } = Astro.props;
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
+import SectionPremiumAds from "../components/sections/SectionPremiumAds.astro";
 ---
 
 <!doctype html>
@@ -22,8 +23,9 @@ import Footer from "../components/Footer.astro";
   <body>
     <Navbar />
     <div class="max-w-screen-xl mx-auto justify-items-center">
-      <slot/>
-      
+      <SectionPremiumAds />
+      <slot />
+      <SectionPremiumAds />
     </div>
     <Footer />
     <script src="../../node_modules/flowbite/dist/flowbite.min.js"></script>

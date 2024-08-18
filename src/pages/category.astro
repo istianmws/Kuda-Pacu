@@ -2,23 +2,16 @@
 import MainLayout from "../layouts/MainLayout.astro";
 import PremiumAds from "../components/sections/SectionPremiumAds.astro";
 import SectionCategory from "../components/sections/SectionCategory.astro";
-// import { Astro } from "astro";
 
+const { slug } = Astro.params;
 ---
 
 <MainLayout title="category">
   <PremiumAds />
   <SectionCategory
     category={"category1"}
-    subcategory={'subcategory'}
+    subcategory={"subcategory"}
     href={"url.href"}
   />
   <PremiumAds />
-  <script>
-    // Kode ini akan dijalankan di sisi klien setelah halaman dimuat
-    const url = new URL(window.location.href);
-    const category1 = url.searchParams.get("jenis");
-    console.log("Client-side URL:", url);
-    console.log("Client-side category:", category1);
-  </script>
 </MainLayout>

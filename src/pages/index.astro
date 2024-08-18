@@ -1,12 +1,13 @@
 ---
-import Layout from "../layouts/MainLayout.astro";
+import MainLayout from "../layouts/MainLayout.astro";
 import CardAds from "../components/CardAds.astro";
-import PremiumAds from "../components/sections/SectionPremiumAds.astro";
+import SectionPremiumAds from "../components/sections/SectionPremiumAds.astro";
 import SectionHero from "../components/sections/SectionHero.astro";
 import SectionCategory from "../components/sections/SectionCategory.astro";
 import SectionCTA from "../components/sections/SectionCTA.astro";
 import ScetionGalaery from "../components/sections/SectionGalery.astro";
 import NodeCache from "node-cache";
+import fetchApi from "../lib/strapi";
 
 // interface Props<T> {
 //   category: string;
@@ -23,35 +24,39 @@ export async function getDataCard() {
   try {
     // Data categori + card
     let endpoint_card =
-      "kategoris?populate[kontens][populate]=pengiklan,foto,foto_utama,foto_utama";
-    const url = new URL(`${import.meta.env.STRAPI_URL}/api/${endpoint_card}`);
-    const response = await fetch(url.toString());
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const categories = await response.json();
-    //console.log(categories.data);
-    return categories.data;
-    return {
-      props: {
-        categories: categories.data,
-      },
-    };
+      "kategoris?populate[kontens][populate]=pengiklan,foto,foto_utama";
+
+    const categories = await fetchApi({
+      endpoint: endpoint_card, // the content type to fetch
+    });
+
+    const limitedData = categories.data.map((kategori) => {
+      // Membatasi jumlah kontens yang ditampilkan menjadi maksimal 8
+      const limitedKontens = kategori.attributes.kontens.data.slice(0, 8);
+      return {
+        ...kategori,
+        attributes: {
+          ...kategori.attributes,
+          kontens: {
+            ...kategori.attributes.kontens,
+            data: limitedKontens,
+          },
+        },
+      };
+    });
+
+    return limitedData;
   } catch (error) {
     console.error("There was a problem with the fetch operation:", error);
   }
 }
 
-//await getDataCard();
 const categories = await getDataCard();
-//console.log(categories);
 
 //const { categories, subcategory, href, category }: Props<T> = Astro.props;
 ---
 
-<Layout title="Kuda Pacu">
-  <PremiumAds />
-
+<MainLayout title="Kuda Pacu">
   <SectionHero />
 
   {
@@ -66,6 +71,7 @@ const categories = await getDataCard();
               name={categori.attributes.nama}
               id={categori.id}
               kontens={categori.attributes.kontens.data}
+              type="section"
             />
           </div>
         )
@@ -98,5 +104,4 @@ const categories = await getDataCard();
       />
     </div>
   </div>
-  <PremiumAds />
-</Layout>
+</MainLayout>

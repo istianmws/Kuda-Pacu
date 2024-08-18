@@ -8,9 +8,10 @@ interface Props<T> {
   subcategory?: string;
   href?: string;
   kontens?: Array<T>;
+  type: string;
 }
 
-const { id, href, name, subcategory, kontens } = Astro.props;
+const { id, href, name, subcategory, kontens, type } = Astro.props;
 ---
 
 <div
@@ -27,6 +28,7 @@ const { id, href, name, subcategory, kontens } = Astro.props;
       Temukan banyak layanan yang dari kami
     </div>
   </div>
+  { type !== 'detail' && (
   <img
     src="https://i.ibb.co.com/S62s7bL/kudapacu-3.png"
     class="h-20"
@@ -34,11 +36,13 @@ const { id, href, name, subcategory, kontens } = Astro.props;
   />
   <div class="justify-self-end">
     <a
-      href=`?kategori=${name}&id=${id}`
+      href=`/category/${id}?kategori=${name.replace(/ /g, '-')}`
       class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-md text-sm px-5 py-2.5 text-center mb-2"
       >Lihat Selengkapnya</a
     >
   </div>
+  )}
+
 </div>
 
 <div
@@ -55,81 +59,4 @@ const { id, href, name, subcategory, kontens } = Astro.props;
     ))
   }
 
-  <!-- <CardAds
-    title="Kuda Pacu"
-    desc="saya adalah seorang kuda pacu yang sangat cepat"
-    img="https://cdn.builder.io/api/v1/image/assets/TEMP/f7216f743535b0d6c792fa6684ea72a99bca81565a1e5da62091b3276c9a79b7?placeholderIfAbsent=true&apiKey=54fb95c0816f4dfb82f7ffd2db39b850"
-    linkwa=""
-    linkfb=""
-    linkyt=""
-    linktiktok=""
-    linkig=""
-    linkweb=""
-  />
-  <CardAds
-    title="Kuda Pacu"
-    desc="saya adalah seorang kuda pacu yang sangat cepat"
-    img="https://i.ibb.co.com/mHhdZMr/horse.jpg"
-    linkwa=""
-    linkfb=""
-    linkyt=""
-    linktiktok=""
-    linkig=""
-    linkweb=""
-  />
-  <CardAds
-    title="Kuda Pacu"
-    desc="saya adalah seorang kuda pacu yang sangat cepat"
-    img="https://i.ibb.co.com/mHhdZMr/horse.jpg"
-    linkwa=""
-    linkfb=""
-    linkyt=""
-    linktiktok=""
-    linkig=""
-    linkweb=""
-  />
-  <CardAds
-    title="Kuda Pacu"
-    desc="saya adalah seorang kuda pacu yang sangat cepat"
-    img="https://i.ibb.co.com/S62s7bL/kudapacu-3.png"
-    linkwa=""
-    linkfb=""
-    linkyt=""
-    linktiktok=""
-    linkig=""
-    linkweb=""
-  />
-  <CardAds
-    title="Kuda Pacu"
-    desc="saya adalah seorang kuda pacu yang sangat cepat"
-    img="https://i.ibb.co.com/S62s7bL/kudapacu-3.png"
-    linkwa=""
-    linkfb=""
-    linkyt=""
-    linktiktok=""
-    linkig=""
-    linkweb=""
-  />
-  <CardAds
-    title="Kuda Pacu"
-    desc="saya adalah seorang kuda pacu yang sangat cepat"
-    img="https://i.ibb.co.com/DL4PT7Z/undraw-Software-engineer-re-tnjc.png"
-    linkwa=""
-    linkfb=""
-    linkyt=""
-    linktiktok=""
-    linkig=""
-    linkweb=""
-  />
-  <CardAds
-    title="Kuda Pacu"
-    desc="saya adalah seorang kuda pacu yang sangat cepat"
-    img="https://i.ibb.co.com/DL4PT7Z/undraw-Software-engineer-re-tnjc.png"
-    linkwa=""
-    linkfb=""
-    linkyt=""
-    linktiktok=""
-    linkig=""
-    linkweb=""
-  /> -->
 </div>
