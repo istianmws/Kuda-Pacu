@@ -1,96 +1,41 @@
 ---
+import fetchApi from "../../lib/strapi";
+import CardAd from "../CardAd.astro";
 import CardAds from "../CardAds.astro";
+
+async function getKontens(id, page = 1) {
+  try {
+    let endpoint_card = `kontens?filters[iklan][id][$eq]=${id}&populate=pengiklan.foto,foto_utama`;
+    return await fetchApi({
+      endpoint: endpoint_card, // the content type to fetch
+      wrappedByKey: "data",
+    });
+  } catch (error) {
+    console.error("There was a problem with the fetch operation:", error);
+  }
+}
+
+const kontens = await getKontens(1);
+console.log(kontens);
 ---
 
 <div
   class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4 mt-20 justify-items-center place-content-center"
 >
-  <CardAds
-    title="Kuda Pacu"
-    desc=""
-    img="https://cdn.builder.io/api/v1/image/assets/TEMP/f7216f743535b0d6c792fa6684ea72a99bca81565a1e5da62091b3276c9a79b7?placeholderIfAbsent=true&apiKey=54fb95c0816f4dfb82f7ffd2db39b850"
-    linkwa=""
-    linkfb=""
-    linkyt=""
-    linktiktok=""
-    linkig=""
-    linkweb=""
-  />
-  <CardAds
-    title="Kuda Pacu"
-    desc=""
-    img="https://cdn.builder.io/api/v1/image/assets/TEMP/f7216f743535b0d6c792fa6684ea72a99bca81565a1e5da62091b3276c9a79b7?placeholderIfAbsent=true&apiKey=54fb95c0816f4dfb82f7ffd2db39b850"
-    linkwa=""
-    linkfb=""
-    linkyt=""
-    linktiktok=""
-    linkig=""
-    linkweb=""
-  />
-  <CardAds
-    title="Kuda Pacu"
-    desc=""
-    img="https://i.ibb.co.com/mHhdZMr/horse.jpg"
-    linkwa=""
-    linkfb=""
-    linkyt=""
-    linktiktok=""
-    linkig=""
-    linkweb=""
-  />
-  <CardAds
-    title="Kuda Pacu"
-    desc=""
-    img="https://i.ibb.co.com/mHhdZMr/horse.jpg"
-    linkwa=""
-    linkfb=""
-    linkyt=""
-    linktiktok=""
-    linkig=""
-    linkweb=""
-  />
-  <CardAds
-    title="Kuda Pacu"
-    desc=""
-    img="https://i.ibb.co.com/S62s7bL/kudapacu-3.png"
-    linkwa=""
-    linkfb=""
-    linkyt=""
-    linktiktok=""
-    linkig=""
-    linkweb=""
-  />
-  <CardAds
-    title="Kuda Pacu"
-    desc=""
-    img="https://i.ibb.co.com/S62s7bL/kudapacu-3.png"
-    linkwa=""
-    linkfb=""
-    linkyt=""
-    linktiktok=""
-    linkig=""
-    linkweb=""
-  />
-  <CardAds
-    title="Kuda Pacu"
-    desc=""
-    img="https://i.ibb.co.com/DL4PT7Z/undraw-Software-engineer-re-tnjc.png"
-    linkwa=""
-    linkfb=""
-    linkyt=""
-    linktiktok=""
-    linkig=""
-    linkweb=""
-  />
-  <CardAds
-    title="Kuda Pacu"
-    desc=""
-    img="https://i.ibb.co.com/DL4PT7Z/undraw-Software-engineer-re-tnjc.png"
-    linkwa=""
-    linkfb=""
-    linkyt=""
-    linktiktok=""
-    linkig=""
-    linkweb=""
-  />
+  {
+    kontens.map((konten) => (
+      <CardAd
+        title={konten.attributes.judul}
+        desc="saya adalah seorang kuda pacu yang sangat cepat"
+        img={
+          konten.attributes.pengiklan.data.attributes.foto.data !== null
+            ? konten.attributes.pengiklan.data.attributes.foto.data.attributes
+                .formats.small.url
+            : konten.attributes.foto_utama.data.attributes.formats.small.url
+        }
+        alt={konten.attributes.foto_utama.data.attributes.formats.small.name}
+        data_pengiklan={konten.attributes.pengiklan.data.attributes}
+      />
+    ))
+  }
 </div>

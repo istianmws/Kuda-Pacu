@@ -53,7 +53,8 @@ const { id, href, name, subcategory, kontens, type } = Astro.props;
       <CardAd
         title={konten.attributes.judul}
         desc="saya adalah seorang kuda pacu yang sangat cepat"
-        img={konten.attributes.foto_utama.data.attributes.formats.small.url}
+        img={konten.attributes.foto_utama.data.attributes.thumbnail.small.url}
+        alt={konten.attributes.foto_utama.data.attributes.formats.small.name}
         data_pengiklan={konten.attributes.pengiklan.data.attributes}
       />
     ))
