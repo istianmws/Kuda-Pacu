@@ -1,0 +1,6 @@
+---
+import { marked } from "marked";
+const content = marked(Astro.props.content);
+---
+
+<article class="prose-lg" set:html={content} />

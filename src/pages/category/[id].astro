@@ -4,6 +4,7 @@ import PremiumAds from "../../components/sections/SectionPremiumAds.astro";
 import SectionCategory from "../../components/sections/SectionCategory.astro";
 import fetchApi from "../../lib/strapi";
 import CardAd from "../../components/CardAd.astro";
+import NotFound from "../../components/NotFound.astro";
 
 const { id } = Astro.params;
 const url = new URL(Astro.url);
@@ -45,92 +46,101 @@ const kontens = data_kontens.data;
 ---
 
 <MainLayout title="category">
-  <div
-    class="grid grid-cols-3 items-center justify-items-center mx-auto p-5 mt-24"
-  >
-    <div class="flex flex-col justify-self-start">
-      <div class="text-[#c32f27] text-[32px] font-bold font-['Kumbh Sans']">
-        {categori.nama}
-        <span class="text-[#2b2d42] text-[32px] font-bold font-['Kumbh Sans']"
-        ></span>
-      </div>
-      <div
-        class="flex text-[#2b2d42] text-base font-normal font-['Kumbh Sans']"
-      >
-        {categori.deskripsi}
-      </div>
-    </div>
-  </div>
-
-  <div
-    class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4 mt-5 justify-items-center place-content-center"
-  >
   {
-    kontens.map((konten) => (
-      <CardAd
-        id={konten.id}
-        title={konten.attributes.judul}
-        desc="saya adalah seorang kuda pacu yang sangat cepat"
-        img={konten.attributes.foto_utama.data.attributes.formats.thumbnail.url}
-        data_pengiklan={konten.attributes.pengiklan.data.attributes}
-      />
-    ))
+    categori ? (
+      <div>
+        <div
+          class="grid grid-cols-3 items-center justify-items-center mx-auto p-5 mt-24"
+        >
+          <div class="flex flex-col justify-self-start">
+            <div class="text-[#c32f27] text-[32px] font-bold font-['Kumbh Sans']">
+              {categori.nama}
+              <span class="text-[#2b2d42] text-[32px] font-bold font-['Kumbh Sans']"
+              ></span>
+            </div>
+            <div
+              class="flex text-[#2b2d42] text-base font-normal font-['Kumbh Sans']"
+            >
+              {categori.deskripsi}
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4 mt-5 justify-items-center place-content-center"
+        >
+        {
+          kontens.map((konten) => (
+            <CardAd
+              id={konten.id}
+              title={konten.attributes.judul}
+              desc="saya adalah seorang kuda pacu yang sangat cepat"
+              img={konten.attributes.foto_utama.data.attributes.formats.thumbnail.url}
+              data_pengiklan={konten.attributes.pengiklan.data.attributes}
+            />
+          ))
+        }
+        </div>
+
+        <!-- Paginasi -->
+        <div class="px-6 mt-5 flex">
+          <!-- Previous Button -->
+          {
+            paging && paging.page !== 1 && (
+              <a
+                href=`?kategori=${kategori}&page=${paging.page - 1}`
+                class="flex items-center justify-center px-4 h-10 me-3 text-base font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              >
+                <svg
+                  class="w-3.5 h-3.5 me-2 rtl:rotate-180"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 14 10"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 5H1m0 0 4 4M1 5l4-4"
+                  />
+                </svg>
+                Previous
+              </a>
+            )
+          }
+
+          {
+            paging && paging.page < paging.pageCount && (
+              <a
+                href=`?kategori=${kategori}&page=${paging.page + 1}`
+                class="flex items-center justify-center px-4 h-10 text-base font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              >
+                Next
+                <svg
+                  class="w-3.5 h-3.5 ms-2 rtl:rotate-180"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 14 10"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M1 5h12m0 0L9 1m4 4L9 9"
+                  />
+                </svg>
+              </a>
+            )
+          }
+        </div>
+      </div>
+  ) : (
+      <NotFound />
+    )
   }
-  </div>
 
-  <!-- Paginasi -->
-  <div class="px-6 mt-5 flex">
-    <!-- Previous Button -->
-    {
-      paging && paging.page !== 1 && (
-        <a
-          href=`?kategori=${kategori}&page=${paging.page - 1}`
-          class="flex items-center justify-center px-4 h-10 me-3 text-base font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-        >
-          <svg
-            class="w-3.5 h-3.5 me-2 rtl:rotate-180"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 10"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M13 5H1m0 0 4 4M1 5l4-4"
-            />
-          </svg>
-          Previous
-        </a>
-      )
-    }
-
-    {
-      paging && paging.page < paging.pageCount && (
-        <a
-          href=`?kategori=${kategori}&page=${paging.page + 1}`
-          class="flex items-center justify-center px-4 h-10 text-base font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-        >
-          Next
-          <svg
-            class="w-3.5 h-3.5 ms-2 rtl:rotate-180"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 10"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M1 5h12m0 0L9 1m4 4L9 9"
-            />
-          </svg>
-        </a>
-      )
-    }
-  </div>
 </MainLayout>

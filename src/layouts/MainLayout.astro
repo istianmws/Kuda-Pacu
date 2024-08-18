@@ -22,7 +22,9 @@ import SectionPremiumAds from "../components/sections/SectionPremiumAds.astro";
 
   <body>
     <Navbar />
-    <div class="xl:max-w-screen-lg 2xl:max-w-screen-xl mx-auto justify-items-center">
+    <div
+      class="xl:max-w-screen-lg 2xl:max-w-screen-xl mx-auto justify-items-center"
+    >
       <SectionPremiumAds />
       <slot />
       <SectionPremiumAds />
@@ -62,5 +64,10 @@ import SectionPremiumAds from "../components/sections/SectionPremiumAds.astro";
       Bitstream Vera Sans Mono,
       Courier New,
       monospace;
+  }
+
+  ol {
+    list-style-type: decimal;
+    padding-left: 1.5rem; /* Tambahkan padding jika perlu */
   }
 </style>

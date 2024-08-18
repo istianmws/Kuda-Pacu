@@ -3,6 +3,7 @@ import MainLayout from "../../layouts/MainLayout.astro";
 import SectionCategory from "../../components/sections/SectionCategory.astro";
 import SectionDetail from "../../components/sections/SectionDetail.astro";
 import fetchApi from "../../lib/strapi";
+import NotFound from "../../components/NotFound.astro";
 // import { Astro } from "astro";
 
 const { id } = Astro.params;
@@ -23,11 +24,18 @@ async function getKonten(id) {
 }
 
 const konten = await getKonten(id);
+console.log(konten);
 ---
 
 <MainLayout title="category">
-  <SectionDetail
-    konten={konten.attributes}
-    data_pengiklan={konten.attributes.pengiklan.data.attributes}
-  />
+  {
+    konten ? (
+      <SectionDetail
+        konten={konten.attributes}
+        data_pengiklan={konten.attributes.pengiklan.data.attributes}
+      />
+    ) : (
+      <NotFound />
+    )
+  }
 </MainLayout>
