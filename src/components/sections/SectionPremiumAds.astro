@@ -16,7 +16,7 @@ async function getKontens(id, page = 1) {
 }
 
 const kontens = await getKontens(1);
-console.log(kontens);
+//console.log(kontens);
 ---
 
 <div
@@ -25,6 +25,7 @@ console.log(kontens);
   {
     kontens.map((konten) => (
       <CardAd
+        id={konten.id}
         title={konten.attributes.judul}
         desc="saya adalah seorang kuda pacu yang sangat cepat"
         img={

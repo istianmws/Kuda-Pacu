@@ -51,6 +51,7 @@ const { id, href, name, subcategory, kontens, type } = Astro.props;
   {
     kontens.map((konten) => (
       <CardAd
+        id={konten.id}
         title={konten.attributes.judul}
         desc="saya adalah seorang kuda pacu yang sangat cepat"
         img={konten.attributes.foto_utama.data.attributes.formats.small.url}

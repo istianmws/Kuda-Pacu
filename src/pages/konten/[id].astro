@@ -1,0 +1,33 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import SectionCategory from "../../components/sections/SectionCategory.astro";
+import SectionDetail from "../../components/sections/SectionDetail.astro";
+import fetchApi from "../../lib/strapi";
+// import { Astro } from "astro";
+
+const { id } = Astro.params;
+const url = new URL(Astro.url);
+
+async function getKonten(id) {
+  try {
+    let endpoint_card = `kontens/${id}?populate=foto,pengiklan,foto_utama,kategoris`;
+    const categories = await fetchApi({
+      endpoint: endpoint_card, // the content type to fetch
+      wrappedByKey: "data",
+    });
+
+    return categories;
+  } catch (error) {
+    console.error("There was a problem with the fetch operation:", error);
+  }
+}
+
+const konten = await getKonten(id);
+---
+
+<MainLayout title="category">
+  <SectionDetail
+    konten={konten.attributes}
+    data_pengiklan={konten.attributes.pengiklan.data.attributes}
+  />
+</MainLayout>

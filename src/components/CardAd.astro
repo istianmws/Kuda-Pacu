@@ -16,14 +16,15 @@ interface Pengiklan {
   website: string;
 }
 interface Props {
+  id: number;
   title: string;
   desc: string;
   img: string;
-  alt: string;
+  alt?: string;
   data_pengiklan?: Pengiklan;
 }
 
-const { img, title, desc, data_pengiklan } = Astro.props;
+const { id, img, title, desc, data_pengiklan } = Astro.props;
 ---
 
 <section class="flex flex-col max-w-[200px] sm:max-w-[285px]">
@@ -38,9 +39,11 @@ const { img, title, desc, data_pengiklan } = Astro.props;
       class="object-cover w-full rounded-xl aspect-[1.71]"
     />
     <div class="flex flex-col px-3 sm:px-5 mt-4 w-full">
-      <h2 class="self-start text-base font-semibold text-red-600">
-        {title}
-      </h2>
+      <a href=`/konten/${id}?konten=${title.replace(/ /g, '-')}`>
+        <h2 class="self-start text-base font-semibold text-red-600">
+          {title}
+        </h2>
+      </a>
       <p class="sm:my-2.5 text-xs text-neutral-700 max-sm:text-justify">
         {desc}
       </p>

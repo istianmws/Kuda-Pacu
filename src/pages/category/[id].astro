@@ -68,6 +68,7 @@ const kontens = data_kontens.data;
   {
     kontens.map((konten) => (
       <CardAd
+        id={konten.id}
         title={konten.attributes.judul}
         desc="saya adalah seorang kuda pacu yang sangat cepat"
         img={konten.attributes.foto_utama.data.attributes.formats.thumbnail.url}
