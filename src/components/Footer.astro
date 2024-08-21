@@ -2,15 +2,15 @@
 const { categories } = Astro.props;
 ---
 
-<footer class="bg-[#f2f2f2] dark:bg-gray-900 mt-20">
+<footer class="bg-[#f2f2f2] dark:bg-gray-900 mt-28">
   <div
-    class="mx-auto w-full xl:max-w-screen-lg 2xl:max-w-screen-xl p-4 py-10 lg:py-16"
+    class="mx-auto lg:max-w-screen-lg xl:max-w-screen-lg 2xl:max-w-screen-xl p-4 py-10 lg:py-16"
   >
     <div class="md:flex md:justify-between">
       <div class="pb-6 md:pb-0 md:w-[441px] w-auto space-y-5">
         <a
           href="kudapacu.com"
-          class="text-[#3f3f3f] text-2xl font-semibold font-['Kumbh Sans']"
+          class="text-[#3f3f3f] text-xl font-semibold font-['Kumbh Sans']"
         >
           Kudapacu.com
         </a>
@@ -24,11 +24,11 @@ const { categories } = Astro.props;
       <div class="grid grid-cols-2 gap-x-28">
         <div>
           <div
-            class="text-black dark:text-gray-200 text-2xl font-semibold mb-5"
+            class="text-black dark:text-gray-200 text-xl font-semibold mb-5"
           >
             Layanan
           </div>
-          <ul class="text-gray-500 dark:text-gray-400 font-medium space-y-3">
+          <ul class="text-gray-500 dark:text-gray-400 text-sm space-y-3">
             {
               categories.map((categori) => (
                 <li>
@@ -45,11 +45,11 @@ const { categories } = Astro.props;
         </div>
         <div>
           <div
-            class="text-black dark:text-gray-200 text-2xl font-semibold mb-5"
+            class="text-black dark:text-gray-200 text-xl font-semibold mb-5"
           >
             Tentang
           </div>
-          <ul class="text-gray-500 dark:text-gray-400 font-medium space-y-3">
+          <ul class="text-gray-500 dark:text-gray-400 text-sm space-y-3">
             <li>
               <a href="#" class="hover:underline">Tentang kami</a>
             </li>
@@ -65,7 +65,7 @@ const { categories } = Astro.props;
     </div>
   </div>
   <div class="w-full h-[53px] flex justify-center items-center bg-[#e6e6e6]">
-    <div class="text-[#3f3f3f] text-xl font-normal font-['Kumbh Sans']">
+    <div class="text-[#3f3f3f] text-md font-normal font-['Kumbh Sans']">
       @ 2024 Kudapacu.com
     </div>
   </div>

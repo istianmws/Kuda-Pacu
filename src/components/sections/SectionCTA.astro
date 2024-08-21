@@ -8,7 +8,7 @@ const { konten } = Astro.props;
   class="flex flex-wrap items-center justify-between mx-5 mt-20 p-8 rounded-[10px] shadow-md border border-[#d9d9d9]"
 >
   <Image
-    class="h-24"
+    class="h-20 w-auto object-cover"
     inferSize
     alt="descriptive text"
     src=`${import.meta.env.STRAPI_URL}${konten.logo_CTA.data.attributes.formats.thumbnail.url}`
@@ -16,7 +16,7 @@ const { konten } = Astro.props;
   />
 
   <div class="flex flex-col">
-    <div class="text-black text-[32px] font-semibold font-['Kumbh Sans']">
+    <div class="text-black text-2xl font-bold font-['Kumbh Sans']">
       {konten.Judul_CTA}
     </div>
     <div class="text-center">

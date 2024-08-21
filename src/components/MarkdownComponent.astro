@@ -3,4 +3,4 @@ import { marked } from "marked";
 const content = marked(Astro.props.content);
 ---
 
-<article class="prose-lg" set:html={content} />
+<article class="prose-lg text-sm" set:html={content} />
