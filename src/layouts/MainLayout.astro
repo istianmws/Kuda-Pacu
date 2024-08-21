@@ -7,6 +7,24 @@ const { title } = Astro.props;
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 import SectionPremiumAds from "../components/sections/SectionPremiumAds.astro";
+
+import fetchApi from "../lib/strapi";
+
+export async function getCategory() {
+  try {
+    // Data categori + card
+    let endpoint_card = "kategoris";
+
+    return await fetchApi({
+      endpoint: endpoint_card, // the content type to fetch
+      wrappedByKey: "data",
+    });
+  } catch (error) {
+    console.error("There was a problem with the fetch operation:", error);
+  }
+}
+
+const categories_list = await getCategory();
 ---
 
 <!doctype html>
@@ -21,7 +39,7 @@ import SectionPremiumAds from "../components/sections/SectionPremiumAds.astro";
   </head>
 
   <body>
-    <Navbar />
+    <Navbar categories={categories_list} />
     <div
       class="lg:max-w-screen-lg xl:max-w-screen-lg 2xl:max-w-screen-xl mx-auto justify-items-center"
     >
@@ -29,7 +47,7 @@ import SectionPremiumAds from "../components/sections/SectionPremiumAds.astro";
       <slot />
       <SectionPremiumAds />
     </div>
-    <Footer />
+    <Footer categories={categories_list} />
     <script src="../../node_modules/flowbite/dist/flowbite.min.js"></script>
   </body>
 </html>

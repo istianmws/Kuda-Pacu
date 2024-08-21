@@ -22,7 +22,6 @@ interface Props {
 }
 
 const { konten, data_pengiklan } = Astro.props;
-console.log();
 const images = konten.foto.data;
 ---
 
@@ -162,8 +161,6 @@ const images = konten.foto.data;
     <div class="text-black text-2xl font-semibold font-['Kumbh Sans']">
       Detail
     </div>
-    <p>Hallo</p>
-    <p>Hallo</p>
     <MarkdownComponent content={konten.detail} />
   </div>
 </section>
