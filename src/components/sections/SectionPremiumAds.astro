@@ -39,21 +39,4 @@ const kontens = await getKontens(1);
       />
     ))
   }
-  {
-    kontens.map((konten) => (
-      <CardAd
-        id={konten.id}
-        title={konten.attributes.judul}
-        desc=""
-        img={
-          konten.attributes.pengiklan.data.attributes.foto.data !== null
-            ? konten.attributes.pengiklan.data.attributes.foto.data.attributes
-                .formats.small.url
-            : konten.attributes.foto_utama.data.attributes.formats.small.url
-        }
-        alt={konten.attributes.foto_utama.data.attributes.formats.small.name}
-        data_pengiklan={konten.attributes.pengiklan.data.attributes}
-      />
-    ))
-  }
 </div>

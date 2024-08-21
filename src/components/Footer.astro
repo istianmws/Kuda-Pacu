@@ -1,5 +1,11 @@
+---
+const { categories } = Astro.props;
+---
+
 <footer class="bg-[#f2f2f2] dark:bg-gray-900 mt-20">
-  <div class="mx-auto w-full xl:max-w-screen-lg 2xl:max-w-screen-xl p-4 py-10 lg:py-16">
+  <div
+    class="mx-auto w-full xl:max-w-screen-lg 2xl:max-w-screen-xl p-4 py-10 lg:py-16"
+  >
     <div class="md:flex md:justify-between">
       <div class="pb-6 md:pb-0 md:w-[441px] w-auto space-y-5">
         <a
@@ -23,22 +29,18 @@
             Layanan
           </div>
           <ul class="text-gray-500 dark:text-gray-400 font-medium space-y-3">
-            <li>
-              <a href="/horse-for-sale" class="hover:underline"
-                >Horse for sale</a
-              >
-            </li>
-            <li>
-              <a href="/horse-stable" class="hover:underline">Horse stable</a>
-            </li>
-            <li>
-              <a href="/product-and-service" class="hover:underline"
-                >Product and service</a
-              >
-            </li>
-            <li>
-              <a href="/racing" class="hover:underline">Racing</a>
-            </li>
+            {
+              categories.map((categori) => (
+                <li>
+                  <a 
+                  href=`/category/${categori.id}?kategori=${categori.attributes.nama.replace(/ /g, '-')}`
+                  class="hover:underline">
+                    {categori.attributes.nama}
+                  </a>
+                </li>
+              ))
+            }
+
           </ul>
         </div>
         <div>

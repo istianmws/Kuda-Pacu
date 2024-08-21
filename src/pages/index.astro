@@ -51,13 +51,29 @@ export async function getDataCard() {
   }
 }
 
+export async function getLandingPage() {
+  try {
+    // Data categori + card
+    let endpoint_lp = "landing-page?populate=foto,logo_CTA";
+
+    return await fetchApi({
+      endpoint: endpoint_lp, // the content type to fetch
+      //page: "LandingPage",
+      wrappedByKey: "data",
+    });
+  } catch (error) {
+    console.error("There was a problem with the fetch operation:", error);
+  }
+}
+
 const categories = await getDataCard();
+let landingPage = await getLandingPage();
 
 //const { categories, subcategory, href, category }: Props<T> = Astro.props;
 ---
 
 <MainLayout title="Kuda Pacu">
-  <SectionHero />
+  <SectionHero konten={landingPage.attributes} />
 
   {
     categories.map(
@@ -65,7 +81,7 @@ const categories = await getDataCard();
         categori &&
         categori.attributes.kontens.data.length > 0 && (
           <div>
-            {index === 1 && <SectionCTA />}
+            {index === 1 && <SectionCTA konten={landingPage.attributes} />}
 
             <SectionCategory
               name={categori.attributes.nama}
@@ -78,22 +94,6 @@ const categories = await getDataCard();
     )
   }
 
-  <!-- <SectionCategory
-    category="Horse"
-    subcategory="for sale"
-    href={`/category?category=sub&subcategory=hallo`}
-  />
-  
-  <SectionCategory category="Stalion" subcategory="for stud" href="yourHref" />
-  <SectionCategory category="Horse" subcategory="Stable" href="yourHref" />
-  <SectionCategory category="Horse" subcategory="Profesional" href="yourHref" />
-  <SectionCategory
-    category="Product"
-    subcategory="and Service"
-    href="yourHref"
-  />
-  <SectionCategory category="Artikel" subcategory="" href="yourHref" />
-  <SectionCategory category="Racing" subcategory="Event" href="yourHref" /> -->
   <!-- <ScetionGalaery /> -->
   <div class="px-5 my-10">
     <div class="grid justify-items-center">
