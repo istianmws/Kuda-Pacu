@@ -1,100 +1,50 @@
+---
+import { Image } from "astro:assets";
+import fetchApi from "../../lib/strapi";
+export const prerender = false;
+
+async function getImages() {
+  try {
+    let endpoint_card = `galeri?populate=*`;
+    return await fetchApi({
+      endpoint: endpoint_card, // the content type to fetch
+      wrappedByKey: "data",
+    });
+  } catch (error) {
+    console.error("There was a problem with the fetch operation:", error);
+  }
+}
+
+let galeris = await getImages();
+if (galeris.attributes.foto && galeris.attributes.foto.data.length > 4) {
+  galeris = galeris.attributes.foto.data.slice(0, 4);
+}else{
+  galeris = galeris.attributes.foto.data;
+}
+---
+
 <div class="p-5 mt-20">
-  <div class="text-black text-[32px] font-bold font-['Kumbh Sans'] grid mb-5 justify-items-center">
+  <div
+    class="text-black text-[32px] font-bold font-['Kumbh Sans'] grid mb-5 justify-items-center"
+  >
     Galeri Kami
   </div>
 
   <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-    <div class="grid gap-4">
-      <div>
-        <img
-          class="h-auto max-w-full rounded-lg"
-          src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg"
-          alt=""
-        />
-      </div>
-      <div>
-        <img
-          class="h-auto max-w-full rounded-lg"
-          src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg"
-          alt=""
-        />
-      </div>
-      <div>
-        <img
-          class="h-auto max-w-full rounded-lg"
-          src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg"
-          alt=""
-        />
-      </div>
-    </div>
-    <div class="grid gap-4">
-      <div>
-        <img
-          class="h-auto max-w-full rounded-lg"
-          src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg"
-          alt=""
-        />
-      </div>
-      <div>
-        <img
-          class="h-auto max-w-full rounded-lg"
-          src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg"
-          alt=""
-        />
-      </div>
-      <div>
-        <img
-          class="h-auto max-w-full rounded-lg"
-          src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg"
-          alt=""
-        />
-      </div>
-    </div>
-    <div class="grid gap-4">
-      <div>
-        <img
-          class="h-auto max-w-full rounded-lg"
-          src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg"
-          alt=""
-        />
-      </div>
-      <div>
-        <img
-          class="h-auto max-w-full rounded-lg"
-          src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg"
-          alt=""
-        />
-      </div>
-      <div>
-        <img
-          class="h-auto max-w-full rounded-lg"
-          src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg"
-          alt=""
-        />
-      </div>
-    </div>
-    <div class="grid gap-4">
-      <div>
-        <img
-          class="h-auto max-w-full rounded-lg"
-          src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg"
-          alt=""
-        />
-      </div>
-      <div>
-        <img
-          class="h-auto max-w-full rounded-lg"
-          src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-10.jpg"
-          alt=""
-        />
-      </div>
-      <div>
-        <img
-          class="h-auto max-w-full rounded-lg"
-          src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg"
-          alt=""
-        />
-      </div>
-    </div>
+    {
+      galeris.map((galeri) => (
+        <div class="grid gap-4">
+          <div>
+            <Image
+              alt="descriptive text"
+              class="h-auto max-w-full rounded-lg"
+              // src="https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/p2/117/2023/11/30/Screenshot-173-2238099686.png"
+              src=`${import.meta.env.STRAPI_URL}${galeri.attributes.formats.small.url}`
+              inferSize
+            />
+          </div>
+        </div>
+      ))
+    }
   </div>
 </div>
