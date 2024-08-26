@@ -1,37 +1,43 @@
 ---
-import CardAds from "../components/CardAds.astro";
-import Layout from "../layouts/MainLayout.astro";
+import MainLayout from "../layouts/MainLayout.astro";
+import SectionCategory from "../components/sections/SectionCategory.astro";
+import SectionDetail from "../components/sections/tempSectionDetail.astro";
+import fetchApi from "../lib/strapi";
+import NotFound from "../components/NotFound.astro";
+import SectionGalery from "../components/sections/SectionGalery.astro";
 import Tempsection from "../components/sections/tempsection.astro";
+import { number } from "astro/zod";
+// import { Astro } from "astro";
 
-// Fetch data from the API
-// const response = await fetch(
-//   "https://backend.kiranaecoprint.online/api/kategoris?populate[kontens][populate]=pengiklan,foto"
-// );
-// const data = await response.json();
-// console.log(data.attributes);
-// Extract the needed information
-// const category1 = data.data[0].attributes;
-// const kontens11 = category1.kontens.data[0].attributes;
-// const pengiklan = kontens11.pengiklan.data.attributes;
-// const foto = kontens11.foto.data[0].attributes;
-//console.log(data);
+const id  = 4;
+const url = new URL(Astro.url);
+
+async function getKonten(id) {
+  try {
+    let endpoint_card = `kontens/${id}?populate=foto,pengiklan,foto_utama,kategoris`;
+    const categories = await fetchApi({
+      endpoint: endpoint_card, // the content type to fetch
+      wrappedByKey: "data",
+    });
+
+    return categories;
+  } catch (error) {
+    console.error("There was a problem with the fetch operation:", error);
+  }
+}
+
+const konten = await getKonten(id);
 ---
 
-<!-- buat ngetes component -->
-<Layout title="TEST">
-  <!-- <h1>{category1.nama}</h1>
-  <p>{kontens11.detail}</p>
-  <p>Pengiklan: {pengiklan.nama} - {pengiklan.alamat}</p>
-  <p>Harga: {category1.harga}</p>
-  <CardAds
-    title={category1.judul}
-    desc={category1.deskripsi}
-    img={foto.foto.data[0].attributes.url}
-    linkwa={pengiklan.wa}
-    linkfb={pengiklan.fb}
-    linkyt={pengiklan.yt}
-    linktiktok={pengiklan.tiktok}
-    linkig={pengiklan.ig}
-    linkweb={pengiklan.web} -->
-  <Tempsection />
-</Layout>
+<MainLayout title="category">
+  {
+    konten ? (
+      <SectionDetail
+        konten={konten.attributes}
+        data_pengiklan={konten.attributes.pengiklan.data.attributes}
+      />
+    ) : (
+      <NotFound />
+    )
+  }
+</MainLayout>
