@@ -80,24 +80,27 @@ const images = konten.foto.data;
       <div class="grid gap-4">
 
         <div>
+          <a href="#lightbox">
           <Image
             class="h-auto max-w-full rounded-lg"
             inferSize
             alt="descriptive text"
             src=`${import.meta.env.STRAPI_URL}${konten.foto_utama.data.attributes.formats.small.url}`
-          />
+          /></a>
         </div>
 
         <div class="grid grid-cols-3 gap-4">
           {
             images.map((image) => (
               <div>
+                
+                <a href="#lightbox">
                 <Image
                   class="h-auto max-w-full rounded-lg"
                   alt="descriptive text"
                   src=`${import.meta.env.STRAPI_URL}${image.attributes.formats.small.url}`
                   inferSize
-                />
+                /></a>
               </div>
             ))
           }
