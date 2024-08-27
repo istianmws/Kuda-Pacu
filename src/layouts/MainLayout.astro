@@ -45,7 +45,7 @@ const categories_list = await getCategory();
     >
       <SectionPremiumAds />
       <slot />
-      <SectionPremiumAds client:visible />
+      <SectionPremiumAds />
     </div>
     <Footer categories={categories_list} />
     <script src="../../node_modules/flowbite/dist/flowbite.min.js"></script>

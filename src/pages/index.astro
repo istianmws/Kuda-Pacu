@@ -84,7 +84,6 @@ let landingPage = await getLandingPage();
             {index === 1 && <SectionCTA konten={landingPage.attributes} />}
 
             <SectionCategory
-              client:visible
               name={categori.attributes.nama}
               id={categori.id}
               kontens={categori.attributes.kontens.data}
@@ -95,7 +94,7 @@ let landingPage = await getLandingPage();
     )
   }
 
-  <ScetionGalaery client:visible />
+  <ScetionGalaery />
   <div class="px-5 my-10">
     <div class="grid justify-items-center">
       <img
