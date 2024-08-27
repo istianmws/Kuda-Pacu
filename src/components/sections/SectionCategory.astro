@@ -15,8 +15,13 @@ const { id, href, name, subcategory, kontens, type } = Astro.props;
 ---
 
 <div
-  class="grid grid-cols-3 items-center justify-items-center mx-auto p-5 mt-28"
+  class="flex flex-row md:grid grid-cols-3 items-center justify-between gap-x-3 md:justify-items-center  mx-auto p-5 mt-28"
 >
+  <img
+    src="https://i.ibb.co.com/S62s7bL/kudapacu-3.png"
+    class="h-16 md:hidden"
+    alt="KudaPacu Logo"
+  />
   <div class="flex flex-col justify-self-start">
     <div class="text-[#c32f27] text-2xl font-bold font-['Kumbh Sans']">
       {name}
@@ -25,20 +30,25 @@ const { id, href, name, subcategory, kontens, type } = Astro.props;
       >
     </div>
     <div class="flex text-[#2b2d42] text-base font-normal font-['Kumbh Sans']">
-      Temukan banyak layanan yang dari kami
+      Temukan banyak layanan dari kami
     </div>
   </div>
   { type !== 'detail' && (
   <img
     src="https://i.ibb.co.com/S62s7bL/kudapacu-3.png"
-    class="h-20"
+    class="hidden md:flex h-20"
     alt="KudaPacu Logo"
   />
   <div class="justify-self-end">
     <a
       href=`/category/${id}?kategori=${name.replace(/ /g, '-')}`
-      class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-md text-sm px-5 py-2.5 text-center mb-2"
+      class="hidden md:flex text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-md text-sm px-5 py-2.5 text-center mb-2"
       >Lihat Selengkapnya</a
+    >
+    <a
+      href=`/category/${id}?kategori=${name.replace(/ /g, '-')}`
+      class="flex md:hidden justify-self-end text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium text-xs rounded-md text-sm px-2 py-1 text-center"
+      >lainnya ></a
     >
   </div>
   )}
