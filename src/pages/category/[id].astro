@@ -70,15 +70,21 @@ const kontens = data_kontens.data;
           class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4 mt-5 justify-items-center place-content-center"
         >
         {
-          kontens.map((konten) => (
-            <CardAd
-              id={konten.id}
-              title={konten.attributes.judul}
-              desc="saya adalah seorang kuda pacu yang sangat cepat"
-              img={konten.attributes.foto_utama.data.attributes.formats.thumbnail.url}
-              data_pengiklan={konten.attributes.pengiklan.data.attributes}
-            />
-          ))
+          kontens.length > 0 ? (
+            kontens.map((konten) => (
+              <CardAd
+                id={konten.id}
+                title={konten.attributes.judul}
+                desc="saya adalah seorang kuda pacu yang sangat cepat"
+                img={konten.attributes.foto_utama.data.attributes.url}
+                data_pengiklan={konten.attributes.pengiklan.data.attributes}
+              />
+            ))
+          ) : (
+            <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+              <span class="font-medium">Data belum ada</span> Jadi konten pertama yang tampil pada halaman ini 
+            </div>
+          )
         }
         </div>
 

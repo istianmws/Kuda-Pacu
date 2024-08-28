@@ -5,7 +5,7 @@ export const prerender = false;
 
 async function getImages() {
   try {
-    let endpoint_card = "galeri-fotos?populate=*&pagination[pageSize]=4";
+    let endpoint_card = "galeri-fotos?populate=*&pagination[pageSize]=8";
     return await fetchApi({
       endpoint: endpoint_card, // the content type to fetch
       wrappedByKey: "data",
@@ -36,7 +36,7 @@ console.log(galeris);
               alt="descriptive text"
               class="h-auto max-w-full rounded-lg"
               // src="https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/p2/117/2023/11/30/Screenshot-173-2238099686.png"
-              src=`${import.meta.env.STRAPI_URL}${galeri.attributes.foto.data.attributes.formats.small.url}`
+              src={`${import.meta.env.STRAPI_URL}${galeri.attributes.foto.data.attributes.url}`}
               inferSize
             />
           </div>
@@ -44,4 +44,9 @@ console.log(galeris);
       ))
     }
   </div>
+
+  <div class="flex justify-center">
+  <a href="/galeri" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Selengkapnya</a>
+  </div>
+
 </div>

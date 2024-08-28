@@ -1,0 +1,151 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import { Image } from "astro:assets";
+import fetchApi from "../lib/strapi";
+import { YouTube } from "astro-embed";
+
+const url = new URL(Astro.url);
+const page =
+  url.searchParams.get("page") === null
+    ? 1
+    : parseInt(url.searchParams.get("page"), 10);
+
+async function getImages(page = 1) {
+  try {
+    let endpoint_card = `galeri-fotos?populate=*&pagination[page]=${page}&pagination[pageSize]=12`;
+    return await fetchApi({
+      endpoint: endpoint_card, // the content type to fetch
+    });
+  } catch (error) {
+    console.error("There was a problem with the fetch operation:", error);
+  }
+}
+
+async function getVideo(page = 1) {
+  try {
+    let endpoint_card = `galeri-videos?populate=*&pagination[page]=${page}&pagination[pageSize]=12`;
+    return await fetchApi({
+      endpoint: endpoint_card, // the content type to fetch
+      wrappedByKey: "data",
+    });
+  } catch (error) {
+    console.error("There was a problem with the fetch operation:", error);
+  }
+}
+
+let galeris = await getImages(page);
+const paging = galeris.meta.pagination;
+galeris = galeris.data;
+
+let video = await getVideo(page);
+// console.log(video);
+const videos = video.map((item) => {
+  // Parse string JSON di key 'video'
+  const videoDetails = JSON.parse(item.attributes.video);
+  return {
+    ...item,
+    attributes: {
+      ...item.attributes,
+      video: videoDetails, // Simpan hasil parsing ke dalam 'video'
+    },
+  };
+});
+console.log(videos);
+---
+
+<MainLayout title="Galeri">
+  <div class="p-5 mt-20">
+    <div
+      class="text-black text-[32px] font-bold font-['Kumbh Sans'] grid mb-5 justify-items-center"
+    >
+      Galeri Kami
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
+      {
+        galeris.map((galeri) => (
+          <div class="grid gap-4">
+            <div>
+              <Image
+                alt="descriptive text"
+                class="h-auto max-w-full rounded-lg"
+                src="https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/p2/117/2023/11/30/Screenshot-173-2238099686.png"
+                src={`${import.meta.env.STRAPI_URL}${galeri.attributes.foto.data.attributes.url}`}
+                inferSize
+              />
+            </div>
+          </div>
+        ))
+      }
+
+      {
+        videos.map((video) => (
+          <div class="grid gap-4">
+            <div>
+              <YouTube
+                id={video.attributes.video.url}
+                poster={video.attributes.video.thumbnail}
+              />
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Paginasi -->
+    <div class="px-6 mt-5 flex">
+      <!-- Previous Button -->
+      {
+        paging && paging.page !== 1 && (
+          <a
+            href={`?page=${paging.page - 1}`}
+            class="flex items-center justify-center px-4 h-10 me-3 text-base font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          >
+            <svg
+              class="w-3.5 h-3.5 me-2 rtl:rotate-180"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 14 10"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 5H1m0 0 4 4M1 5l4-4"
+              />
+            </svg>
+            Previous
+          </a>
+        )
+      }
+
+      {
+        paging && paging.page < paging.pageCount && (
+          <a
+            href={`?page=${paging.page + 1}`}
+            class="flex items-center justify-center px-4 h-10 text-base font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          >
+            Next
+            <svg
+              class="w-3.5 h-3.5 ms-2 rtl:rotate-180"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 14 10"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M1 5h12m0 0L9 1m4 4L9 9"
+              />
+            </svg>
+          </a>
+        )
+      }
+    </div>
+  </div>
+</MainLayout>
