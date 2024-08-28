@@ -113,7 +113,7 @@ let video_2 = konten.video_2 ? JSON.parse(konten.video_2) : null;
         <div>
           <a href="#lightbox">
           <Image
-            class="h-auto max-w-full rounded-lg"
+            class="h-auto w-full rounded-lg"
             inferSize
             alt="descriptive text"
             src=`${import.meta.env.STRAPI_URL}${konten.foto_utama.data.attributes.formats.small.url}`
@@ -121,20 +121,82 @@ let video_2 = konten.video_2 ? JSON.parse(konten.video_2) : null;
         </div>
 
         <div class="grid grid-cols-3 gap-4">
-          {
+          <!-- {
             images.map((image,) => (
               <div>
                 
                 <a href="#lightbox">
                 <Image
-                  class="h-auto max-w-full rounded-lg"
+                  class="h-full max-w-full object-cover rounded-lg"
                   alt="descriptive text"
                   src=`${import.meta.env.STRAPI_URL}${image.attributes.formats.small.url}`
                   inferSize
                 /></a>
               </div>
             ))
+          } -->
+
+          <!-- Menampilkan maksimal 2 gambar -->
+          <!-- {images.slice(0, 3).map((image) => (
+            <div key={image.id}>
+              <a href="#lightbox">
+                <Image
+                  class="h-full max-w-full object-cover rounded-lg"
+                  alt="descriptive text"
+                  src={`${import.meta.env.STRAPI_URL}${image.attributes.formats.small.url}`}
+                  inferSize
+                />
+              </a>
+            </div>
+          ))} -->
+
+          <!-- Menambahkan div kosong di kolom ketiga jika ada lebih dari 2 gambar -->
+          <!-- {images.length > 3 && (
+            <div class="h-full max-w-full rounded-lg"></div>
+          )} -->
+
+          <!-- Jika jumlah gambar lebih dari 3, hanya tampilkan 2 gambar dan biarkan grid terakhir kosong -->
+          {images.length > 3
+            ? (
+              <>
+                {images.slice(0, 2).map((image) => (
+                  <div key={image.id}>
+                    <a href="#lightbox">
+                      <Image
+                        class="h-full max-w-full object-cover rounded-lg"
+                        alt="descriptive text"
+                        src={`${import.meta.env.STRAPI_URL}${image.attributes.formats.small.url}`}
+                        inferSize
+                      />
+                    </a>
+                  </div>
+                ))}
+                <div class="h-full max-w-full rounded-lg flex items-center justify-center">
+                  <a href="#lightbox" class="text-sm md:text-4xl font-bold text-gray-500 hover:text-black transition duration-300">
+                    Lebih banyak  &gt&gt&gt;
+                  </a>
+                </div>
+              </>
+            )
+            : (
+              <!-- Jika jumlah gambar 3 atau kurang, tampilkan semua gambar -->
+              <>
+                {images.map((image) => (
+                  <div key={image.id}>
+                    <a href="#lightbox">
+                      <Image
+                        class="h-full max-w-full object-cover rounded-lg"
+                        alt="descriptive text"
+                        src={`${import.meta.env.STRAPI_URL}${image.attributes.formats.small.url}`}
+                        inferSize
+                      />
+                    </a>
+                  </div>
+                ))}
+              </>
+            )
           }
+
         </div>
       </div>
     </div>
