@@ -34,6 +34,7 @@ const images = konten.foto.data;
         id="lightbox"
         class="hidden target:flex fixed inset-0 p-10 bg-black/75 overflow-auto  justify-center items-center"
         >
+        
         <a href="#" class="bg-white hover:bg-gray-300 px-3 py-1 text-black hover:text-red-700 font-bold absolute rounded-md left-2/3 top-1/3"
         >X</a
       >
@@ -52,10 +53,24 @@ const images = konten.foto.data;
               </div>
             ))
           }
-            <!-- <div class="hidden duration-700 ease-in-out" data-carousel-item>
+          
+            <div class="hidden duration-700 ease-in-out" data-carousel-item>
               <img src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" 
               class="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="">
-            </div> -->
+            </div>
+            <div class="hidden duration-700 ease-in-out" data-carousel-item>
+              
+                <iframe class="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" width="560" height="315" src="https://www.youtube.com/embed/dyNcLY9GZX4?si=FcSn4aUjMdf5-cxU&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+            </div>
+            <div class="hidden duration-700 ease-in-out" data-carousel-item>
+              
+                <video class="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" controls>
+                  <source src="https://www.youtube.com/embed/dyNcLY9GZX4?si=FcSn4aUjMdf5-cxU&amp;controls=0" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+
+            </div>
           </div>
           <!-- Slider controls -->
           <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
