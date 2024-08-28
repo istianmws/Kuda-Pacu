@@ -48,13 +48,13 @@ let video_2 = konten.video_2 ? JSON.parse(konten.video_2) : null;
         >X</a>
         <div id="gallery" class="relative w-full lg:w-2/3 xl:w-1/2" data-carousel="static">
           <!-- Carousel wrapper -->
-          <div class="relative h-52 overflow-hidden rounded-lg md:h-96 xl:h-[500px]">
+          <div class="relative h-screen overflow-hidden rounded-lg">
             <!-- Items 1 -->
             {
               images.map((image) => (
                 <div class="hidden" data-carousel-item>
                   <Image
-                    class="absolute block w-full h-full object-cover rounded-lg -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt=""
+                    class="absolute block max-w-full h-auto object-contain rounded-lg -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt=""
                     src=`${import.meta.env.STRAPI_URL}${image.attributes.url}`
                     inferSize
                   />
@@ -65,10 +65,12 @@ let video_2 = konten.video_2 ? JSON.parse(konten.video_2) : null;
             {
               video_1 && (
                 <div class="hidden" data-carousel-item>
+                  <div class="relative top-1/2 right-1/2 -translate-y-1/2 translate-x-1/2">
                   <YouTube
                     id={video_1.url}
                     poster={video_1.thumbnail}
-                  />
+                    />
+                  </div>
                 </div>
               )
             }
@@ -76,10 +78,12 @@ let video_2 = konten.video_2 ? JSON.parse(konten.video_2) : null;
             {
               video_2 && (
                 <div class="hidden" data-carousel-item>
+                  <div class="relative top-1/2 right-1/2 -translate-y-1/2 translate-x-1/2">
                   <YouTube
                     id={video_2.url}
                     poster={video_2.thumbnail}
-                  />
+                    />
+                  </div>
                 </div>
               )
             }
