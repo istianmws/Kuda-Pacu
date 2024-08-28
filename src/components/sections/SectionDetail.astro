@@ -7,6 +7,7 @@ import Yt from "../icons/Yt.astro";
 import Web from "../icons/Web.astro";
 import { Image } from "astro:assets";
 import MarkdownComponent from "../MarkdownComponent.astro";
+import { YouTube } from 'astro-embed';
 
 interface Pengiklan {
   whatsapp: string;
@@ -21,8 +22,15 @@ interface Props {
   data_pengiklan: Pengiklan;
 }
 
+function formatRupiahManual(number) {
+    return 'Rp' + number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+
 const { konten, data_pengiklan } = Astro.props;
+const harga = formatRupiahManual(konten.harga);
 const images = konten.foto.data;
+let video = JSON.parse(konten.video_1);
+console.log(video);
 ---
 
 <section class="px-5 mt-20">
@@ -44,15 +52,16 @@ const images = konten.foto.data;
             <!-- Items 1 -->
              {
             images.map((image) => (
-              <div class="hidden duration-700 ease-in-out" data-carousel-item>
+              <div class="hidden" data-carousel-item>
                 <Image
                   class="absolute block w-full h-full object-cover rounded-lg -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt=""
-                  src=`${import.meta.env.STRAPI_URL}${image.attributes.formats.small.url}`
+                  src=`${import.meta.env.STRAPI_URL}${image.attributes.url}`
                   inferSize
                 />
               </div>
             ))
           }
+          
             <!-- <div class="hidden duration-700 ease-in-out" data-carousel-item>
               <img src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" 
               class="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="">
@@ -77,6 +86,7 @@ const images = konten.foto.data;
           </button>
         </div>
       </div>
+      
       <div class="grid gap-4">
 
         <div>
@@ -120,7 +130,7 @@ const images = konten.foto.data;
         <div
           class="text-[#d90429] text-[32px] font-bold font-['Kumbh Sans'] leading-[35px]"
         >
-          {konten.harga}
+          {harga}
         </div>
         <div class="text-black text-xs font-medium font-['Kumbh Sans']">
           Informasi Pemilik
@@ -208,6 +218,7 @@ const images = konten.foto.data;
         </div>
       </div>
     </article>
+  
   </div>
 
   <div class="flex flex-col mt-12 gap-y-8 mb-20">
@@ -215,5 +226,11 @@ const images = konten.foto.data;
       Detail
     </div>
     <MarkdownComponent content={konten.detail} />
+
+    <YouTube
+      id={video.url}
+      poster={video.thumbnail}
+    />
   </div>
 </section>
+

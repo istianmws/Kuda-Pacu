@@ -5,7 +5,7 @@ export const prerender = false;
 
 async function getImages() {
   try {
-    let endpoint_card = `galeri?populate=*`;
+    let endpoint_card = "galeri-fotos?populate=*&pagination[pageSize]=4";
     return await fetchApi({
       endpoint: endpoint_card, // the content type to fetch
       wrappedByKey: "data",
@@ -16,11 +16,7 @@ async function getImages() {
 }
 
 let galeris = await getImages();
-if (galeris.attributes.foto && galeris.attributes.foto.data.length > 4) {
-  galeris = galeris.attributes.foto.data.slice(0, 4);
-}else{
-  galeris = galeris.attributes.foto.data;
-}
+console.log(galeris);
 ---
 
 <div class="p-5 mt-20">
@@ -35,11 +31,12 @@ if (galeris.attributes.foto && galeris.attributes.foto.data.length > 4) {
       galeris.map((galeri) => (
         <div class="grid gap-4">
           <div>
+           
             <Image
               alt="descriptive text"
               class="h-auto max-w-full rounded-lg"
               // src="https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/p2/117/2023/11/30/Screenshot-173-2238099686.png"
-              src=`${import.meta.env.STRAPI_URL}${galeri.attributes.formats.small.url}`
+              src=`${import.meta.env.STRAPI_URL}${galeri.attributes.foto.data.attributes.formats.small.url}`
               inferSize
             />
           </div>
