@@ -34,11 +34,10 @@ kontens = kontens.attributes.kontens.data;
         desc=""
         img={
           konten.attributes.pengiklan.data.attributes.foto.data !== null
-            ? konten.attributes.pengiklan.data.attributes.foto.data.attributes
-                .formats.small.url
-            : konten.attributes.foto_utama.data.attributes.formats.small.url
+            ? konten.attributes.pengiklan.data.attributes.foto.data.attributes.url
+            : konten.attributes.foto_utama.data.attributes.url
         }
-        alt={konten.attributes.foto_utama.data.attributes.formats.small.name}
+        alt={konten.attributes.foto_utama.data.attributes.name}
         data_pengiklan={konten.attributes.pengiklan.data.attributes}
       />
     ))
