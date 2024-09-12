@@ -75,9 +75,10 @@ const kontens = data_kontens.data;
               <CardAd
                 id={konten.id}
                 title={konten.attributes.judul}
-                desc="saya adalah seorang kuda pacu yang sangat cepat"
-                img={konten.attributes.foto_utama.data.attributes.url}
-                data_pengiklan={konten.attributes.pengiklan.data.attributes}
+                desc={konten.attributes.deskripsi_singkat}
+                img={konten.attributes.foto_utama.data.attributes.formats?.small?.url 
+    ?? konten.attributes.foto_utama.data.attributes.url}
+                data_pengiklan={konten.attributes.pengiklan?.data?.attributes ?? null}
               />
             ))
           ) : (
