@@ -33,7 +33,7 @@ const konten = await getKonten(id);
     konten ? (
       <SectionDetail
         konten={konten.attributes}
-        data_pengiklan={konten.attributes.pengiklan.data.attributes}
+        data_pengiklan={konten.attributes.pengiklan?.data?.attributes ?? null}
       />
     ) : (
       <NotFound />
