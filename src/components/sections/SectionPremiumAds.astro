@@ -1,7 +1,7 @@
 ---
 import fetchApi from "../../lib/strapi";
 import CardAd from "../CardAd.astro";
-import CardAds from "../CardAds.astro";
+import CardAds from "../CardAdPremium.astro";
 
 export const prerender = false;
 
@@ -24,11 +24,11 @@ kontens = kontens.attributes.kontens.data;
 ---
 
 <div
-  class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4 justify-items-center place-content-center py-10"
+  class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 justify-items-center place-content-center py-10"
 >
   {
     kontens.map((konten) => (
-      <CardAd
+      <CardAds
         id={konten.id}
         title={konten.attributes.judul}
         desc=""
