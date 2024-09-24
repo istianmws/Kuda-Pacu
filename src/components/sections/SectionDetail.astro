@@ -30,10 +30,31 @@ function formatRupiahManual(number) {
 const { konten, data_pengiklan } = Astro.props;
 const harga = formatRupiahManual(konten.harga);
 const images = konten.foto.data != null ? konten.foto.data : [];
-console.log(images);
 let video_1 = konten.video_1 ? JSON.parse(konten.video_1) : null;
 let video_2 = konten.video_2 ? JSON.parse(konten.video_2) : null;
 ---
+
+<style>
+  .tiktok-container {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    overflow: hidden;
+    position: relative;
+    z-index: -99;
+  }
+
+  .tiktok-container blockquote {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .tiktok-container iframe {
+    width: 100%;
+    height: auto;
+  }
+</style>
 
 <section class="px-5 mt-20">
   <div class="grid grid-cols-1 gap-5 lg:gap-8 xl:gap-6 md:grid-cols-12">
@@ -69,10 +90,14 @@ let video_2 = konten.video_2 ? JSON.parse(konten.video_2) : null;
               video_1 && (
                 <div class="hidden" data-carousel-item>
                   <div class="relative top-1/2 right-1/2 -translate-y-1/2 translate-x-1/2">
-                  <YouTube
-                    id={video_1.url}
-                    poster={video_1.thumbnail}
-                    />
+                  {
+                    video_1.rawData.provider_name === 'YouTube' ? 
+                    <YouTube
+                      id={video_1.url}
+                      poster={video_1.thumbnail}
+                      /> : 
+                      <div class="tiktok-container" style="z-index: -99;" set:html={video_2.rawData.html}></div>
+                  }
                   </div>
                 </div>
               )
@@ -82,10 +107,15 @@ let video_2 = konten.video_2 ? JSON.parse(konten.video_2) : null;
               video_2 && (
                 <div class="hidden" data-carousel-item>
                   <div class="relative top-1/2 right-1/2 -translate-y-1/2 translate-x-1/2">
-                  <YouTube
-                    id={video_2.url}
-                    poster={video_2.thumbnail}
-                    />
+                  {
+                    video_2.rawData.provider_name === 'YouTube' ? 
+                    <YouTube
+                      id={video_2.url}
+                      poster={video_2.thumbnail}
+                      /> : 
+                      <div class="tiktok-container"  
+                      set:html={video_2.rawData.html}></div>
+                  }
                   </div>
                 </div>
               )
@@ -125,44 +155,10 @@ let video_2 = konten.video_2 ? JSON.parse(konten.video_2) : null;
           /></a>
         </div>
 
-        <div class="grid grid-cols-3 gap-2 sm:gap-4">
-          <!-- {
-            images.map((image,) => (
-              <div>
-                
-                <a href="#lightbox">
-                <Image
-                  class="h-full max-w-full object-cover rounded-lg"
-                  alt="descriptive text"
-                  src=`${import.meta.env.STRAPI_URL}${image.attributes.formats.small.url}`
-                  inferSize
-                /></a>
-              </div>
-            ))
-          } -->
-
-          <!-- Menampilkan maksimal 2 gambar -->
-          <!-- {images.slice(0, 3).map((image) => (
-            <div key={image.id}>
-              <a href="#lightbox">
-                <Image
-                  class="h-full max-w-full object-cover rounded-lg"
-                  alt="descriptive text"
-                  src={`${import.meta.env.STRAPI_URL}${image.attributes.formats.small.url}`}
-                  inferSize
-                />
-              </a>
-            </div>
-          ))} -->
-
-          <!-- Menambahkan div kosong di kolom ketiga jika ada lebih dari 2 gambar -->
-          <!-- {images.length > 3 && (
-            <div class="h-full max-w-full rounded-lg"></div>
-          )} -->
-
+        <div class="grid grid-cols-3 gap-4">
           <!-- Jika jumlah gambar lebih dari 3, hanya tampilkan 2 gambar dan biarkan grid terakhir kosong -->
           {
-          images.length > 3
+          images.length > 2
             ? (
               <>
                 {images.slice(0, 2).map((image) => (
@@ -178,7 +174,8 @@ let video_2 = konten.video_2 ? JSON.parse(konten.video_2) : null;
                     </a>
                   </div>
                 ))}
-                <div class="h-full max-w-full rounded-lg flex text-center items-center justify-center bg-gray-300 hover:bg-red-500  text-gray-500 hover:text-white p-4">
+                
+                <div class="h-1/3 max-w-full rounded-lg flex text-center items-center justify-center bg-gray-300 hover:bg-red-500  text-gray-500 hover:text-white p-4">
                   <a href="#lightbox" class="object-cover text-xs md:text-lg font-bold transition duration-300">
                     Lihat lebih banyak
                   </a>
@@ -202,9 +199,26 @@ let video_2 = konten.video_2 ? JSON.parse(konten.video_2) : null;
                     </a>
                   </div>
                 ))}
+
+                { video_1 && (
+                  <div key="1">
+                    <a href="#lightbox">
+                      <Image
+                        class="h-full max-w-full object-cover rounded-lg"
+                        alt="descriptive text"
+                        src={`${video_1.thumbnail }`}
+                        inferSize
+                      />
+                    </a>
+                  </div>
+
+                ) }
+
               </>
             )
           }
+
+
 
         </div>
       </div>
@@ -241,7 +255,7 @@ let video_2 = konten.video_2 ? JSON.parse(konten.video_2) : null;
             {
               data_pengiklan.whatsapp && (
                 <a
-                  href=`https://wa.me/${data_pengiklan.whatsapp}`
+                  href={`https://wa.me/${data_pengiklan.whatsapp}`}
                   class="px-3 py-2 text-md font-medium text-center inline-flex items-center space-x-2 text-white bg-red-400 rounded-lg hover:bg-red-800 focus:ring-1 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-400 dark:focus:ring-red-800"
                 >
                   <Wa />
@@ -326,6 +340,7 @@ let video_2 = konten.video_2 ? JSON.parse(konten.video_2) : null;
     <div class="text-black text-2xl font-semibold font-['Kumbh Sans']">
       Detail
     </div>
+
     <MarkdownComponent content={konten.detail} />
 
     
