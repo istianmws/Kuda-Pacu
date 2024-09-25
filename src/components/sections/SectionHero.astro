@@ -13,7 +13,7 @@ const { konten } = Astro.props;
       class="object-cover grow w-full rounded-3xl aspect-[0.9] max-md:mt-10 max-md:max-w-full"
       inferSize
       alt="descriptive text"
-      src=`${import.meta.env.STRAPI_URL}${konten.foto.data.attributes.formats.medium.url}`
+      src=`${import.meta.env.STRAPI_URL}${konten.foto.data.attributes.url}`
       loading="lazy"
     />
   </div>
