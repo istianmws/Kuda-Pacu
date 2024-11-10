@@ -31,7 +31,10 @@ const { konten, data_pengiklan } = Astro.props;
 const harga = formatRupiahManual(konten.harga);
 const images = konten.foto.data != null ? konten.foto.data : [];
 let video_1 = konten.video_1 ? JSON.parse(konten.video_1) : null;
+console.log('halo');
+console.log(video_1.rawData);
 let video_2 = konten.video_2 ? JSON.parse(konten.video_2) : null;
+
 ---
 
 <style>
@@ -96,7 +99,7 @@ let video_2 = konten.video_2 ? JSON.parse(konten.video_2) : null;
                       id={video_1.url}
                       poster={video_1.thumbnail}
                       /> : 
-                      <div class="tiktok-container" style="z-index: -99;" set:html={video_2.rawData.html}></div>
+                      <div class="tiktok-container" style="z-index: 0;" set:html={video_1.rawData.html}></div>
                   }
                   </div>
                 </div>
@@ -213,6 +216,21 @@ let video_2 = konten.video_2 ? JSON.parse(konten.video_2) : null;
                   </div>
 
                 ) }
+
+                { video_2 && (
+                  <div key="1">
+                    <a href="#lightbox">
+                      <Image
+                        class="h-full max-w-full object-cover rounded-lg"
+                        alt="descriptive text"
+                        src={`${video_2.thumbnail }`}
+                        inferSize
+                      />
+                    </a>
+                  </div>
+
+                ) }
+
 
               </>
             )
