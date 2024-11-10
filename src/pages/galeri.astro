@@ -18,6 +18,7 @@ async function getImages(page = 1) {
     });
   } catch (error) {
     console.error("There was a problem with the fetch operation:", error);
+    return null;
   }
 }
 
@@ -34,11 +35,11 @@ async function getVideo(page = 1) {
 }
 
 let galeris = await getImages(page);
-const paging = galeris.meta.pagination;
-galeris = galeris.data;
+const paging = galeris && galeris.meta.pagination;
+galeris = galeris && galeris.data;
 
 let video = await getVideo(page);
-// console.log(video);
+
 const videos = video.map((item) => {
   // Parse string JSON di key 'video'
   const videoDetails = JSON.parse(item.attributes.video);
@@ -50,7 +51,6 @@ const videos = video.map((item) => {
     },
   };
 });
-console.log(videos);
 ---
 
 <MainLayout title="Galeri">
@@ -63,19 +63,20 @@ console.log(videos);
 
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
       {
-        galeris.map((galeri) => (
-          <div class="grid gap-4 ">
-            <div>
-              <Image
-                alt="descriptive text"
-                class="h-full max-w-full object-cover hover:object-contain rounded-lg "
-                src="https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/p2/117/2023/11/30/Screenshot-173-2238099686.png"
-                src={`${import.meta.env.STRAPI_URL}${galeri.attributes.foto.data.attributes.url}`}
-                inferSize
-              />
+        galeris &&
+          galeris.map((galeri) => (
+            <div class="grid gap-4 ">
+              <div>
+                <Image
+                  alt="descriptive text"
+                  class="h-full max-w-full object-cover hover:object-contain rounded-lg "
+                  src="https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/p2/117/2023/11/30/Screenshot-173-2238099686.png"
+                  src={`${import.meta.env.STRAPI_URL}${galeri.attributes.foto.data.attributes.url}`}
+                  inferSize
+                />
+              </div>
             </div>
-          </div>
-        ))
+          ))
       }
 
       {
