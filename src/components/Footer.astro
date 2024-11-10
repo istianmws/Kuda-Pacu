@@ -30,15 +30,17 @@ const { categories } = Astro.props;
           </div>
           <ul class="text-gray-500 dark:text-gray-400 text-sm space-y-3">
             {
-              categories.map((categori) => (
-                <li>
-                  <a 
-                  href=`/category/${categori.id}?kategori=${categori.attributes.nama.replace(/ /g, '-')}`
-                  class="hover:underline">
-                    {categori.attributes.nama}
-                  </a>
-                </li>
-              ))
+              categories && (
+                categories.map((categori) => (
+                  <li>
+                    <a 
+                    href=`/category/${categori.id}?kategori=${categori.attributes.nama.replace(/ /g, '-')}`
+                    class="hover:underline">
+                      {categori.attributes.nama}
+                    </a>
+                  </li>
+                ))
+              )
             }
 
           </ul>

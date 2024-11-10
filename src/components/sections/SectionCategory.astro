@@ -42,14 +42,12 @@ const { id, href, name, subcategory, kontens, type } = Astro.props;
   <div class="justify-self-end">
     <a
       href=`/category/${id}?kategori=${name.replace(/ /g, '-')}`
-      class="hidden md:flex text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-md text-sm px-5 py-2.5 text-center mb-2"
-      >Lihat Selengkapnya</a
-    >
+      class="hidden md:flex text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-md text-sm px-5 py-2.5 text-center mb-2">
+        Lihat Selengkapnya</a>
     <a
       href=`/category/${id}?kategori=${name.replace(/ /g, '-')}`
-      class="flex md:hidden justify-self-end text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium text-xs rounded-md text-sm px-2 py-1 text-center"
-      >lainnya ></a
-    >
+      class="flex md:hidden justify-self-end text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium text-xs rounded-md text-sm px-2 py-1 text-center">
+        lainnya </a>
   </div>
   )}
 

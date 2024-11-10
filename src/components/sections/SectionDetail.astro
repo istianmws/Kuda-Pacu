@@ -31,8 +31,6 @@ const { konten, data_pengiklan } = Astro.props;
 const harga = formatRupiahManual(konten.harga);
 const images = konten.foto.data != null ? konten.foto.data : [];
 let video_1 = konten.video_1 ? JSON.parse(konten.video_1) : null;
-console.log('halo');
-console.log(video_1.rawData);
 let video_2 = konten.video_2 ? JSON.parse(konten.video_2) : null;
 
 ---

@@ -15,11 +15,12 @@ async function getKontens(id, page = 1) {
     });
   } catch (error) {
     console.error("There was a problem with the fetch operation:", error);
+    return null;
   }
 }
 
 let kontens = await getKontens(1);
-kontens = kontens.attributes.kontens.data;
+kontens = kontens && kontens.attributes.kontens.data;
 //console.log(kontens);
 ---
 
@@ -27,20 +28,22 @@ kontens = kontens.attributes.kontens.data;
   class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 justify-items-center place-content-center py-10"
 >
   {
-    kontens.map((konten) => (
-      <CardAds
-        id={konten.id}
-        title={konten.attributes.judul}
-        desc=""
-        img={
-          konten.attributes.pengiklan?.data?.attributes?.foto?.data
-            ? konten.attributes.pengiklan.data.attributes.foto.data.attributes
-                .url
-            : konten.attributes.foto_utama.data.attributes.url
-        }
-        alt={konten.attributes.foto_utama.data.attributes.name}
-        data_pengiklan={konten.attributes.pengiklan?.data?.attributes ?? null}
-      />
-    ))
+    kontens && (
+      kontens.map((konten) => (
+        <CardAds
+          id={konten.id}
+          title={konten.attributes.judul}
+          desc=""
+          img={
+            konten.attributes.pengiklan?.data?.attributes?.foto?.data
+              ? konten.attributes.pengiklan.data.attributes.foto.data.attributes
+                  .url
+              : konten.attributes.foto_utama.data.attributes.url
+          }
+          alt={konten.attributes.foto_utama.data.attributes.name}
+          data_pengiklan={konten.attributes.pengiklan?.data?.attributes ?? null}
+        />
+      ))
+    )
   }
 </div>

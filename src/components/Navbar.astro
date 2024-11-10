@@ -50,6 +50,7 @@ const { categories } = Astro.props;
           >
         </li>
         {
+          categories && (
             categories.map((categori) => (
             <li>
                 <a 
@@ -59,6 +60,7 @@ const { categories } = Astro.props;
                 </a>
             </li>
             ))
+          )
         }
 
       </ul>

@@ -21,6 +21,7 @@ export async function getCategory() {
     });
   } catch (error) {
     console.error("There was a problem with the fetch operation:", error);
+    return null;
   }
 }
 
@@ -33,7 +34,7 @@ const categories_list = await getCategory();
     <meta charset="UTF-8" />
     <meta name="description" content="Astro description" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon-16x16.png" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
