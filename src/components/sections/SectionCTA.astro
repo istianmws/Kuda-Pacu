@@ -12,7 +12,7 @@ const { konten } = Astro.props;
       class="h-20 w-auto object-cover"
       inferSize
       alt="descriptive text"
-      src=`${import.meta.env.STRAPI_URL}${konten.logo_CTA.data.attributes.formats.thumbnail.url}`
+      src=`${import.meta.env.STRAPI_URL}${konten.logo_CTA.data.attributes.url}`
       loading="lazy"
     />
   </div>
