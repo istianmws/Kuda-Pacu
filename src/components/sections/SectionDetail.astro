@@ -249,10 +249,15 @@ let video_2 = konten.video_2 ? JSON.parse(konten.video_2) : null;
         <div class="self-start">
           {konten.deskripsi_singkat}
         </div>
-        <div
-          class="text-[#d90429] text-[32px] font-bold font-['Kumbh Sans'] leading-[35px]"
-        >
-          {harga}
+        <div class="flex w-full">
+          
+          <div class="grow bg-gray-100 pb-1 px-2 rounded-sm items-center"> 
+            <div
+              class=" mx-2 mb-1 text-[#d90429] text-[32px] font-bold font-['Kumbh Sans'] leading-[35px]"
+              >
+            {harga}
+            </div>
+          </div>
         </div>
 
         { data_pengiklan && (
